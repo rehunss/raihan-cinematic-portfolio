@@ -302,8 +302,8 @@
       "category": "Marketing internship",
       "period": "Jan-Feb 2025",
       "headline": "Making technology relevant to student life.",
-      "narrative": "At Cakradata, a technology company, I researched audiences, monitored media and turned student needs into content plans, soft-selling copy and technology explainers. I also contributed on camera. My takeaway: start with a familiar audience need, then explain the product benefit.",
-      "contribution": "Audience research, student-focused content planning, soft-selling copy and multimedia support.",
+      "narrative": "At Cakradata, I researched student needs and turned them into technology explainers and soft-selling content for Techno Campus. On posts I appeared in, my role covered research, scripting and on-camera delivery.",
+      "contribution": "Audience research, scriptwriting and on-camera performance for the Techno Campus posts I appeared in.",
       "takeaway": "Explain the benefit in the audience's language before introducing the product.",
       "sample": "assets/cakradata-960.webp",
       "sampleAlt": "Student-oriented laptop and technology content in the supplied Cakradata work sample.",
@@ -315,7 +315,35 @@
       "logo": "logos/cakradata-transparent-display.webp",
       "logoAlt": "Cakradata logo",
       "logoWidth": 600,
-      "logoHeight": 201
+      "logoHeight": 201,
+      "publishedWork": {
+        "observed": "Nov 6, 2026",
+        "samples": [
+          {
+            "label": "Axioo Pongo 735 unboxing",
+            "platform": "TikTok",
+            "url": "https://www.tiktok.com/@techno_campus/video/7468284544102272263",
+            "views": "5,263",
+            "publishedOn": "Feb 6, 2025",
+            "scope": "Research, script and on-camera performance"
+          },
+          {
+            "label": "Taking a laptop to campus",
+            "platform": "Instagram",
+            "url": "https://www.instagram.com/reel/DFff18Cz_Xs/",
+            "views": "2,701",
+            "publishedOn": "Jan 31, 2025",
+            "scope": "Research, script and on-camera performance"
+          },
+          {
+            "label": "Axioo Hype R launch",
+            "platform": "TikTok",
+            "url": "https://www.tiktok.com/@techno_campus/video/7474617664980192520",
+            "views": "13K",
+            "scope": "Separate Techno Campus account post"
+          }
+        ]
+      }
     }
   ],
   "metrics": [
@@ -806,13 +834,13 @@
       "role": "Staff, Human Resources and Organizational Development Department",
       "period": "Feb-Dec 2024",
       "type": "Student organization",
-      "text": "HIMA Mankom represents Communication Management students at Padjadjaran University through student advocacy, organizational development and skill-building programs. I led a nine-person team and coordinated the Internship Program across eight divisions. Reported participation was 81 of 92 new students, approximately 88%.",
+      "text": "HIMA Mankom represents Communication Management students at Padjadjaran University through student advocacy, organizational development and skill-building programs. I led the internship program, coordinating a nine-person team across eight divisions. The program report recorded 81 registrations out of 92 new members, approximately 88%.",
       "sourceId": "hima",
       "image": "assets/hima-960.webp",
       "headline": "Leading HIMA’s Internship Program",
       "context": "HIMA Mankom represents Communication Management students at Padjadjaran University through student advocacy, organizational development and skill-building programs.",
-      "contribution": "I led a nine-person team and coordinated the Internship Program across eight divisions.",
-      "result": "Reported participation was 81 of 92 new students, approximately 88%.",
+      "contribution": "I led the internship program, coordinating a nine-person team across eight divisions.",
+      "result": "The program report recorded 81 registrations out of 92 new members, approximately 88%.",
       "highlights": [
         {
           "value": "9",
@@ -824,7 +852,7 @@
         },
         {
           "value": "81 / 92",
-          "label": "Participants · ≈88%"
+          "label": "Registrants · ≈88%"
         }
       ],
       "logo": "logos/hima-display.webp",
@@ -839,17 +867,21 @@
       "role": "Staff, Bureau of Organizational Synergy and Development",
       "period": "Mar-Dec 2024",
       "type": "Student organization",
-      "text": "BEM Fikom Unpad is the faculty’s highest student executive body, leading student advocacy, strategic initiatives and faculty-wide programs. I supervised the 14-member Department of Profession and Scientific Affairs, monitored performance and supported its programs. As Welcoming Party lead, I developed the concept and led fellow SPO staff. The Welcoming Party welcomed the new cabinet staff.",
+      "text": "BEM Fikom Unpad is the faculty’s highest student executive body, leading student advocacy, strategic initiatives and faculty-wide programs. I supervised the 14-member Department of Profession and Scientific Affairs, monitored performance and supported its programs. I co-led the Welcoming Party and helped develop the event concept. The April 27 Welcoming Party met its attendance threshold of at least 50% of 2024 BEM Fikom members, according to the event report.",
       "sourceId": "bem",
       "image": "assets/bem-960.webp",
       "headline": "Coordinating with BEM Fikom",
       "context": "BEM Fikom Unpad is the faculty’s highest student executive body, leading student advocacy, strategic initiatives and faculty-wide programs.",
-      "contribution": "I supervised the 14-member Department of Profession and Scientific Affairs, monitored performance and supported its programs. As Welcoming Party lead, I developed the concept and led fellow SPO staff.",
-      "result": "The Welcoming Party welcomed the new cabinet staff.",
+      "contribution": "I supervised the 14-member Department of Profession and Scientific Affairs, monitored performance and supported its programs. I co-led the Welcoming Party and helped develop the event concept.",
+      "result": "The April 27 Welcoming Party met its attendance threshold of at least 50% of 2024 BEM Fikom members, according to the event report.",
       "highlights": [
         {
           "value": "14",
           "label": "Department members supervised"
+        },
+        {
+          "value": "≥50%",
+          "label": "Event attendance threshold met"
         }
       ],
       "logo": "logos/bem-transparent-display.webp",

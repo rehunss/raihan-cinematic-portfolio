@@ -85,3 +85,17 @@ test('shared PDF content, ten pages, public links and no footer collisions',asyn
  for(const p of content.projects)await expect(page.locator('.pdf-document')).toContainText(p.narrative);for(const e of content.experience){await expect(page.locator('.pdf-document')).toContainText(e.context);await expect(page.locator('.pdf-document')).toContainText(e.result);}
  const hrefs=await page.locator('.pdf-document a').evaluateAll(as=>as.map(a=>(a as HTMLAnchorElement).href));expect(hrefs.some(h=>h.includes('localhost')||h.includes('127.0.0.1'))).toBe(false);expect(hrefs).toContain(content.settings.publicSiteUrl);
 });
+
+test('follow-up evidence separates account reach from authored work and reports the exact leadership measures', async ({ page }) => {
+  await page.goto('./#cakradata');
+  const work = page.locator('#cakradata .published-samples');
+  await expect(work).toContainText('Nov 6, 2026');
+  const samples = work.getByRole('listitem');
+  await expect(samples).toHaveCount(3);
+  await expect(samples.nth(0)).toContainText('5,263 views');
+  await expect(samples.nth(1)).toContainText('2,701 views');
+  await expect(samples.nth(2)).toContainText('13K views · Separate Techno Campus account post');
+  await expect(samples.nth(1).getByRole('link')).toHaveAttribute('href', /\/reel\/DFff18Cz_Xs\/$/);
+  await expect(page.locator('#hima')).toContainText('81 registrations out of 92 new members');
+  await expect(page.locator('#bem')).toContainText('attendance threshold of at least 50%');
+});

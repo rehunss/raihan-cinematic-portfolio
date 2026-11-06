@@ -17,6 +17,8 @@ git diff --cached --check
 
 The source build succeeded before the redesign. The final locked install reported zero npm advisories. The final build ran TypeScript, Vite’s browser build and build-time HTML rendering. **All 19 Playwright tests passed** in 82 seconds. The four axe scans reported zero violations in the selected WCAG tag sets.
 
+After the evidence follow-up, the production build and all **20 Playwright tests** passed. The added test checks direct Cakradata links, dated counts and separate account attribution, HIMA registrations and BEM's attendance threshold. The updated PDF was regenerated, rendered and inspected on all ten pages. Print layout validation caught a page 8 footer collision during the first attempt. The final export restored the required gap and retained the three public Cakradata hyperlinks.
+
 ## Coverage
 
 - Real WebGL canvas identity and rendered pixels across six chapters. Slow and fast movement, pause, scroll reversal and desktop-to-mobile resizing.
@@ -42,4 +44,4 @@ Ran Lighthouse 13.5 with default mobile simulation on an isolated Vite productio
 
 The production entry is approximately 91 kB gzipped. The deferred WebGL chunk is approximately 319 kB gzipped. The frame cadence describes short software-browser samples. Physical smartphone GPU throughput and field INP remain unmeasured.
 
-The original hosted homepage returned HTTP 200. New repository, Actions and public Pages verification are pending authenticated publication.
+The original hosted homepage returned HTTP 200 in the reference check. The Pages workflow runs the same build and browser checks before deployment.

@@ -1,5 +1,5 @@
 # Open content gaps
 
-- Cakradata post identities, analytics windows and post-level ownership. The case uses the established internship role and existing work sample.
-- HIMA Mankom and BEM Fikom definitions and measurements for broad KPI completion statements. The cases show the documented activity and use first-hand participation or staffing descriptions where appropriate.
+- Cakradata’s original internship-period analytics snapshots. The case uses linked public counters observed on November 6, 2026 and distinguishes authored work from a separate account post.
+- HIMA Mankom completion or attendance data and any exact BEM Welcoming Party attendance total. The documented results cover HIMA registrations and the BEM attendance threshold.
 - Divia’s August post snapshots are team/account results. Keep the August 5 Pamuka post out of the June–July internship case pending role and date confirmation.

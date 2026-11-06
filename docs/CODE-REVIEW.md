@@ -10,7 +10,7 @@ Structured review of the independent checkout against the source at `22ceb3e0299
 | Original browser tests could wait indefinitely on images inside closed disclosure panels. | Tests await hydration, then decode visible images. The print test waits for the lazy print bundle before measuring layout. |
 | Old reveal effects and prior layout selectors increased the initial bundle. | Removed Motion, the duplicate Geist package and obsolete layout rules. The existing chart, dialog and print styles remain in use. |
 | Initial npm audit reported five advisories in the inherited toolchain. | Applied compatible fixes to the locked tree. The updated npm audit reported zero vulnerabilities. |
-| The earlier Cakradata figures and general leadership KPI claims were stronger than the available evidence. | Withheld the figures and general KPI claims. Kept documented work samples, dates and clearly scoped first-hand descriptions. |
+| Cakradata’s older counts and general leadership KPI claims lacked source scope. | Replaced them with dated public post snapshots, clarified the individual production role, and used the exact registration and attendance measures from the leadership reports. |
 | Software rendering or context loss can interrupt the 3D layer. | The HTML, chart controls and static art remain available. Browser coverage exercises missing WebGL and synthetic context loss. |
 
 The 3D code uses an original octagonal form and public project thumbnails. The camera design adapts the idea of a continuous scroll-controlled take. [Joseph Santamaria’s technical case study](https://tympanus.net/codrops/2026/04/28/more-than-a-portfolio-building-a-scroll-driven-3d-world-with-something-to-say/)

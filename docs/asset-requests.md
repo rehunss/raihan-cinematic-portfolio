@@ -2,7 +2,7 @@
 
 | Project | Preferred asset | What it should show and why | Alternative |
 | --- | --- | --- | --- |
-| Cakradata | Public post URL or redacted analytics capture | Post identity, platform, metric and capture date. This would make selected post views verifiable and dateable. | Use the published work sample and qualitative description. |
-| HIMA Mankom Internship Program and BEM Fikom Welcoming Party | Public recap or redacted KPI summary | The specific target, reporting scope and outcome, with personal data removed. This would support a concrete result statement. | Use the published event photo and first-hand contribution. |
+| Cakradata | Redacted historical analytics capture, if available | Post identity, platform, metric and capture date from the internship reporting window. | Use dated public post counters and direct links. |
+| HIMA Mankom and BEM Fikom | Public recap or authorized redacted evidence, if available | Registration or attendance scope and outcomes suitable for a public evidence link. | Use the public event photo and attributed aggregate findings. |
 
 The public profile photo and existing work imagery cover the current layout.

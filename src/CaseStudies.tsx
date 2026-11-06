@@ -2,7 +2,7 @@ import { ArrowUpRight } from '@phosphor-icons/react';
 import { AgeChart, PlatformChart, TirizChart } from './Charts';
 import DiviaPostResults from './DiviaPostResults';
 import { Photo } from './Evidence';
-import { asset, content, projects } from './content';
+import { asset, content, projects, type PublishedWork } from './content';
 
 type OpenProof = (ids: string[]) => void;
 
@@ -20,11 +20,30 @@ const cases = {
   cakradata: {
     situation: 'The Cakradata marketing internship focused on technology content for students.',
     task: 'Turn audience research and media monitoring into relevant technology explainers and soft-selling content.',
-    result: 'The work sample shows student-oriented laptop content. I also contributed on camera during the internship.',
+    result: 'Techno Campus published student-oriented content I researched, scripted and appeared in. Public post snapshots are listed below.',
   },
 };
 
 const sampleProof = { divia: 'divia-linkedin', tiriz: 'tiriz-booth', cakradata: 'cakradata' };
+
+function PublishedSamples({ work }: { work: PublishedWork }) {
+  return (
+    <div className="published-samples">
+      <h4>Published work</h4>
+      <p className="caption">Public view counts observed {work.observed}.</p>
+      <ul>
+        {work.samples.map(sample => (
+          <li key={sample.url}>
+            <a className="text-link" href={sample.url} target="_blank" rel="noopener noreferrer">
+              {sample.label} on {sample.platform} <ArrowUpRight aria-hidden="true" />
+            </a>
+            <p><strong>{sample.views} views</strong> · {sample.scope}{sample.publishedOn && ` · ${sample.publishedOn}`}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export function WorkIndex() {
   return (
@@ -96,6 +115,7 @@ export default function CaseStudies({ onProof }: { onProof: OpenProof }) {
                 </>
               )}
               {id === 'tiriz' && <TirizChart onProof={onProof} />}
+              {project.publishedWork && <PublishedSamples work={project.publishedWork} />}
             </article>
           );
         })}

@@ -1,7 +1,7 @@
-# Follow-up interview
+# Follow-up findings
 
-1. Which published Cakradata TikTok and Instagram posts correspond to the previously cited view counts? When were those values captured?
-2. For one of those posts, which production steps did Raihan personally handle?
-3. Is a public recap or redacted KPI summary available for the HIMA Mankom Internship Program or BEM Fikom Welcoming Party?
+- Cakradata. Raihan researched topics, wrote scripts and appeared on camera for the Techno Campus posts that feature him. Public post links identify two examples. A separate Hype R launch post is scoped to the account.
+- HIMA Mankom. The program report lists Raihan as lead and records 81 registrations from 92 new members.
+- BEM Fikom. The event report lists Raihan as co-lead and records that the Welcoming Party met its attendance threshold.
 
-Each question can be answered in Indonesian or English. Keep any private response and accompanying files outside this repository. Use confirmed answers to refine the canonical case data and rebuild the PDF.
+Original internal reports remain outside the project. The public portfolio and its PDF use the shared content model.

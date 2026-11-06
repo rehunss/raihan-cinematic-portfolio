@@ -70,6 +70,11 @@
 .pdf-cakra-grid{display:grid;grid-template-columns:.65fr 1.6fr;gap:64px;margin-top:26px}
 .pdf-cakra-grid figure img{height:455px;width:100%;object-fit:contain;background:#f5f5f7;border-radius:20px}
 .pdf-cakra-grid .pdf-narrative{margin-bottom:22px!important}
+.pdf-published-work ul{list-style:none;margin:6px 0 0;padding:0}
+.pdf-published-work li{display:grid;grid-template-columns:1fr 1fr;gap:8px;border-top:1px solid #d5d5db;padding:6px 0;font-size:11px;line-height:1.4}
+.pdf-published-work li .pdf-proof{margin-top:0}
+.pdf-document .pdf-experience.compact .pdf-experience-photo{height:132px}
+.pdf-document .pdf-experience.compact .pdf-experience-text{margin:12px 0!important}
 .pdf-cakra-grid .pdf-metrics{margin:24px 0}
 .pdf-cakra-grid .pdf-metrics strong{font-size:56px}
 .pdf-page-title{font-size:37px;margin-bottom:30px!important}
