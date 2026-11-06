@@ -1,0 +1,699 @@
+[
+  {
+    "file": "proof/divia-ig-performance.jpg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "20510442cf8869fd1f12facb83fb5069ec4bdf329e83bed31f8eaffaff9a7b2c"
+  },
+  {
+    "file": "proof/divia-ig-audience.jpg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "5ae21f37f5dbb6bad97a8d3913a809e9bbd824ad27570dfe3d601fea2607a98e"
+  },
+  {
+    "file": "proof/divia-tiktok-growth.jpg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "fcb76636f3545b2178a8ef7d7967d23bed8810d53e64057d2b4e0a3bd3c30b99"
+  },
+  {
+    "file": "proof/divia-linkedin-post.jpeg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "0a1b6ad39e0dff02334fe4640e8a1b345c16e459edb0f292d825fc562f1a021b"
+  },
+  {
+    "file": "proof/divia-linkedin-export.html",
+    "type": "source-evidence-transcription",
+    "transform": "Selected cells transcribed to semantic HTML; CTR formatted to one decimal; poster names summarized as Raihan/Teammate. No generated analytics.",
+    "sha256": "ac1186b563e2c16971e8f3d306d4e70d345211d4789d00b5de22349186082ffe"
+  },
+  {
+    "file": "proof/tiriz-kpi.png",
+    "type": "source-evidence",
+    "transform": "original PDF page rendered by Poppler; no semantic changes",
+    "page": 16,
+    "sha256": "c32f80adde464c2de44c88ae40f38d2b604f113d7ad942dbbb44e5d0a7056440"
+  },
+  {
+    "file": "proof/tiriz-kol.png",
+    "type": "source-evidence",
+    "transform": "original PDF page rendered by Poppler; no semantic changes",
+    "page": 9,
+    "sha256": "415cc3c8316d94edb693301853723c4d2194ae3024a0cf244770d4603a417d13"
+  },
+  {
+    "file": "proof/tiriz-offline-event.png",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "6e297e43784e653049d0694c16f5f817e39fd3e227f44fd0999ecc8f9505254b"
+  },
+  {
+    "file": "proof/cakradata.jpg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "858a674677c2ca15ba5d96980c3f1724b22e67856058ff9f042ca041d5b8eecc"
+  },
+  {
+    "file": "proof/fikomnex.jpg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "82718fc704cbe1e928f40961ac3345e87a94d46be50c51c3bbefbffe24a7444f"
+  },
+  {
+    "file": "proof/hima.jpeg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "5202c6521a1f4bcc60078605f8f2c6bcaba8ebbbc2148ff903aacb55777fbd32"
+  },
+  {
+    "file": "proof/bem.jpeg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "7dbe60ca4d9ed10a7615a845bdffac0d079bbd26b17e3b2057a19d1a3e05b634"
+  },
+  {
+    "file": "proof/home-theatre.jpeg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "278e581ab2b58620ee0268608bc47a5cbfe4d0b23824838f63ac8ab981557787"
+  },
+  {
+    "file": "proof/ideation.jpeg",
+    "type": "source-evidence",
+    "transform": "none",
+    "sha256": "c1f9a02e39a5d5a6c4ac351d514f2cf22e5cee65f2c86768e972307293d51171"
+  },
+  {
+    "file": "proof/course-certificate.png",
+    "type": "source-evidence",
+    "transform": "original PDF page rendered by Poppler; no semantic changes",
+    "page": 1,
+    "sha256": "c46619b8cf44c69988686211ec2d4da6efebd69c4a5699f482736c89a49d726c"
+  },
+  {
+    "file": "documents/CV_Raihan.pdf",
+    "type": "source-document-or-photo",
+    "transform": "none",
+    "sha256": "40c98d26bb310d6ef57ed5669e2fa7c7fffffa900602957d017a684f7157818f"
+  },
+  {
+    "file": "documents/TIRIZ_Laporan_Kampanye.pdf",
+    "type": "source-document",
+    "transform": "none",
+    "sha256": "63cbcaa9cf99cd0acc600f56471456061f01c32727ddf610021ac3cbbba923a5"
+  },
+  {
+    "file": "documents/Fundamentals_of_digital_marketing.pdf",
+    "sha256": "69f0703b564a3e09ea5d9dbe84c3cf1494463d6b0a713f14ae71f4c1e8d73913"
+  },
+  {
+    "file": "logos/divia-transparent.webp",
+    "type": "source-brand-mark-restoration",
+    "source": "https://raw.githubusercontent.com/rehunss/Portofolio/main/assets/logo-divia-clean.png",
+    "transform": "Transparent high-resolution variant from owner portfolio repository; lossless WebP encoding, maximum 1600 pixels. Original low-resolution mark also retained.",
+    "sha256": "26491f358aface1dec7a8d5a521c3c11bb35341b87f1fec34e34e03eff8b4fe5",
+    "dimensions": [
+      1600,
+      535
+    ]
+  },
+  {
+    "file": "logos/divia-transparent-display.webp",
+    "transform": "proportional downsample and lossless WebP; no filters",
+    "sourceDimensions": [
+      1600,
+      535
+    ],
+    "dimensions": [
+      600,
+      201
+    ]
+  },
+  {
+    "file": "logos/home-theatre-transparent.webp",
+    "type": "source-brand-mark-restoration",
+    "source": "https://raw.githubusercontent.com/rehunss/Portofolio/main/assets/logo-home-theatre-clean.png",
+    "transform": "Transparent high-resolution variant from owner portfolio repository; lossless WebP encoding, maximum 1600 pixels. Original low-resolution mark also retained.",
+    "sha256": "8908c6ebfb26a53fc4307ae1f8d3f06dc9f699db19a64778b2cfa627ae2a569a",
+    "dimensions": [
+      1390,
+      1132
+    ]
+  },
+  {
+    "file": "logos/home-theatre-transparent-display.webp",
+    "transform": "proportional downsample and lossless WebP; no filters",
+    "sourceDimensions": [
+      1390,
+      1132
+    ],
+    "dimensions": [
+      600,
+      489
+    ]
+  },
+  {
+    "file": "logos/bem-transparent.webp",
+    "type": "source-brand-mark-restoration",
+    "source": "https://raw.githubusercontent.com/rehunss/Portofolio/main/assets/logo-bem-clean.png",
+    "transform": "Transparent high-resolution variant from owner portfolio repository; lossless WebP encoding, maximum 1600 pixels. Original low-resolution mark also retained.",
+    "sha256": "c75e252c0a51697b978535e2cb954818c801e2c122dbbca98e9d529212fa4691",
+    "dimensions": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "logos/bem-transparent-display.webp",
+    "transform": "proportional downsample and lossless WebP; no filters",
+    "sourceDimensions": [
+      1254,
+      1254
+    ],
+    "dimensions": [
+      600,
+      600
+    ]
+  },
+  {
+    "file": "logos/cakradata-transparent.webp",
+    "type": "source-brand-mark-restoration",
+    "source": "https://raw.githubusercontent.com/rehunss/Portofolio/main/assets/logo-cakradata-clean.png",
+    "transform": "Transparent high-resolution variant from owner portfolio repository; lossless WebP encoding, maximum 1600 pixels. Original low-resolution mark also retained.",
+    "sha256": "1df9df327852018f5aad347d73ee9f47e40dcbc87cb7929ed9d348ed9a0300de",
+    "dimensions": [
+      1600,
+      535
+    ]
+  },
+  {
+    "file": "logos/cakradata-transparent-display.webp",
+    "transform": "proportional downsample and lossless WebP; no filters",
+    "sourceDimensions": [
+      1600,
+      535
+    ],
+    "dimensions": [
+      600,
+      201
+    ]
+  },
+  {
+    "file": "logos/tiriz-transparent.webp",
+    "type": "source-brand-mark-restoration",
+    "source": "https://raw.githubusercontent.com/rehunss/Portofolio/main/assets/logo-tiriz-clean.png",
+    "transform": "Transparent high-resolution variant from owner portfolio repository; lossless WebP encoding, maximum 1600 pixels. Original low-resolution mark also retained.",
+    "sha256": "0879b233b3908cacddf2c8a52496d2e5c29f6763248b0fb152606e8f0a8d78b4",
+    "dimensions": [
+      1600,
+      979
+    ]
+  },
+  {
+    "file": "logos/tiriz-transparent-display.webp",
+    "transform": "proportional downsample and lossless WebP; no filters",
+    "sourceDimensions": [
+      1600,
+      979
+    ],
+    "dimensions": [
+      600,
+      367
+    ]
+  },
+  {
+    "file": "logos/hima.png",
+    "type": "source-brand-mark",
+    "source": "https://raw.githubusercontent.com/rehunss/Portofolio/main/assets/logo-hima.png",
+    "transform": "none",
+    "sha256": "c39bc58f8af3067d73b33d4f08d1d6e0709ef7e766bcf04ac367b56b7e9364c5"
+  },
+  {
+    "file": "logos/hima-display.webp",
+    "transform": "proportional downsample and lossless WebP; no filters",
+    "sourceDimensions": [
+      281,
+      281
+    ],
+    "dimensions": [
+      281,
+      281
+    ]
+  },
+  {
+    "file": "logos/ideation-transparent.png",
+    "type": "source-brand-mark",
+    "source": "https://raw.githubusercontent.com/rehunss/Portofolio/main/assets/logo-ideation.png",
+    "transform": "none; original 3222 x 3222 transparent PNG used directly",
+    "sha256": "84ac7dafd0d2b5213965ba37ed82c1564944945f4ea24da68b3318be14e58dd6"
+  },
+  {
+    "file": "logos/ideation-transparent-display.webp",
+    "transform": "proportional downsample and lossless WebP; no filters",
+    "sourceDimensions": [
+      3222,
+      3222
+    ],
+    "dimensions": [
+      600,
+      600
+    ]
+  },
+  {
+    "file": "logos/apps/google-docs-hires.png",
+    "type": "official-app-icon",
+    "source": "https://www.gstatic.com/images/branding/product/2x/docs_512dp.png",
+    "transform": "none; high-resolution transparent original",
+    "sha256": "9e2edeb00c005841f8b2e82e4f6373dabb23f3cca2fa74c9dc2536f5596ff7e5"
+  },
+  {
+    "file": "logos/apps/google-sheets-hires.png",
+    "type": "official-app-icon",
+    "source": "https://www.gstatic.com/images/branding/product/2x/sheets_512dp.png",
+    "transform": "none; high-resolution transparent original",
+    "sha256": "0f08a6b1b7fb6c78372492da9eff8f1e5b18864e6f38a0e4ea25e468cf8bb97d"
+  },
+  {
+    "file": "logos/apps/google-slides-hires.png",
+    "type": "official-app-icon",
+    "source": "https://www.gstatic.com/images/branding/product/2x/slides_512dp.png",
+    "transform": "none; high-resolution transparent original",
+    "sha256": "01790e8bfc10de0463b7263fb72359d09af41fb6543f87bbd1b7065f1f74f1c2"
+  },
+  {
+    "file": "logos/apps/google-drive-hires.png",
+    "type": "official-app-icon",
+    "source": "https://www.gstatic.com/images/branding/product/2x/drive_512dp.png",
+    "transform": "none; high-resolution transparent original",
+    "sha256": "62513426082323e0fa0a06593695862a9801bff8d114faf4ae8447c0a0bbd0ec"
+  },
+  {
+    "file": "logos/apps/word.svg",
+    "type": "official-app-icon",
+    "source": "https://res.cdn.office.net/files/fabric-cdn-prod_20221201.001/assets/brand-icons/product/svg/word_48x1.svg",
+    "transform": "none; native vector",
+    "sha256": "fef9d7fc114f0c5d55e6d50c6d8d3fc40ed69f1122d9adf1780dfa57ad40af79"
+  },
+  {
+    "file": "logos/apps/powerpoint.svg",
+    "type": "official-app-icon",
+    "source": "https://res.cdn.office.net/files/fabric-cdn-prod_20221201.001/assets/brand-icons/product/svg/powerpoint_48x1.svg",
+    "transform": "none; native vector",
+    "sha256": "708fa79febaf25786d84a4bd6a39c8a7345e1e927399f88761db11dab5441f84"
+  },
+  {
+    "file": "logos/apps/excel.svg",
+    "type": "official-app-icon",
+    "source": "https://res.cdn.office.net/files/fabric-cdn-prod_20221201.001/assets/brand-icons/product/svg/excel_48x1.svg",
+    "transform": "none; native vector",
+    "sha256": "da91a550409ab355e664188a00135bc93603e5a8f53df3eeed8abc2ab3db8d71"
+  },
+  {
+    "file": "logos/apps/canva.svg",
+    "type": "official-app-icon",
+    "source": "https://www.canva.dev/",
+    "transform": "Native Canva wordmark SVG extracted from official developer-site header. Wrapper dimensions normalized; original paths and gradient unchanged.",
+    "sha256": "b7b97247f4b3f1d94440169296b4422e97eb39e3bf54ad2e58c2dd26a26a034a"
+  },
+  {
+    "file": "assets/portrait-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      640
+    ],
+    "sha256": "cd85d946dba5b5f28fb869d9bbe54d55c8e2239a0156733f538d0aead17206d8"
+  },
+  {
+    "file": "assets/portrait-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      960,
+      1280
+    ],
+    "sha256": "544a29e0715e49a3c488a964f438745e17461df39d740fed07eaed79458e590e"
+  },
+  {
+    "file": "assets/portrait-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      1440,
+      1920
+    ],
+    "sha256": "3c1cad86ff9b35dd3c73763a742a1a7581598669ee1f428e2d4b70db69014e8b"
+  },
+  {
+    "file": "assets/divia-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      322
+    ],
+    "sha256": "190c733b00f23c7ccd85fb30855067d267dfcdb4cf43ca1f75d5183cd4c9ffc2"
+  },
+  {
+    "file": "assets/divia-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      940,
+      631
+    ],
+    "sha256": "60d1bc3e42a40733bef5090f9ce08b6d92d4c7719eb0d780a4894fd6a6ba57a0"
+  },
+  {
+    "file": "assets/divia-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      940,
+      631
+    ],
+    "sha256": "60d1bc3e42a40733bef5090f9ce08b6d92d4c7719eb0d780a4894fd6a6ba57a0"
+  },
+  {
+    "file": "assets/tiriz-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      640
+    ],
+    "sha256": "5897440638bd3d899f5fb287e6933cafeb36dea154c2d3db72ab728e47296b9a"
+  },
+  {
+    "file": "assets/tiriz-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      825,
+      1100
+    ],
+    "sha256": "419d38ac36153789d00f46c0d67323c96fb71b243540a60439f2f31ad91f70ea"
+  },
+  {
+    "file": "assets/tiriz-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      825,
+      1100
+    ],
+    "sha256": "419d38ac36153789d00f46c0d67323c96fb71b243540a60439f2f31ad91f70ea"
+  },
+  {
+    "file": "assets/cakradata-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      1067
+    ],
+    "sha256": "1cc49b293c065d365241425711a608378b592b090989f27d45412b4911ac0e6f"
+  },
+  {
+    "file": "assets/cakradata-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      495,
+      1100
+    ],
+    "sha256": "37f0ed133e98d4e32fca1d270f89801c4cb587723f65b1465018d6f0864b9c99"
+  },
+  {
+    "file": "assets/cakradata-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      495,
+      1100
+    ],
+    "sha256": "37f0ed133e98d4e32fca1d270f89801c4cb587723f65b1465018d6f0864b9c99"
+  },
+  {
+    "file": "assets/fikomnex-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      270
+    ],
+    "sha256": "0163b08323562b4cfc033e8bd2f8465c22e1579fa4c768be651a6db957cbd5e1"
+  },
+  {
+    "file": "assets/fikomnex-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      960,
+      540
+    ],
+    "sha256": "cbd34491451486e351f317c261fa2fb63177c79b4c7662fd147ed54b872aa417"
+  },
+  {
+    "file": "assets/fikomnex-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      1440,
+      810
+    ],
+    "sha256": "8b5689a6d5f06e4db6660595520353fc8781ff1b2f1524ef8cfdc7150b8f4631"
+  },
+  {
+    "file": "assets/hima-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      640
+    ],
+    "sha256": "ccd929fa8cbb38b707add9664a3961c3383e1a3248058719d56184477680466a"
+  },
+  {
+    "file": "assets/hima-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      960,
+      1280
+    ],
+    "sha256": "3d9b542e8e2c0ce85c855cb564eccc629bae1e70060c601f66d80b08215bebed"
+  },
+  {
+    "file": "assets/hima-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      1108,
+      1477
+    ],
+    "sha256": "0e2e34a50f2f32b031c53621d17d2f03fff00e5a80933735fb022050ee651ab4"
+  },
+  {
+    "file": "assets/bem-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      853
+    ],
+    "sha256": "28f4d805b82aab8d9839fd9e62cd1571f606cfedecf7f485920afc46c1a2e59a"
+  },
+  {
+    "file": "assets/bem-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      960,
+      1706
+    ],
+    "sha256": "17e8115ea22f1761bc96924f2c6d26ffa85ae89129ebfbfb266b3526ba756230"
+  },
+  {
+    "file": "assets/bem-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      960,
+      1706
+    ],
+    "sha256": "17e8115ea22f1761bc96924f2c6d26ffa85ae89129ebfbfb266b3526ba756230"
+  },
+  {
+    "file": "assets/theatre-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      640
+    ],
+    "sha256": "eb99ae477e201b7b8690893aab8d19f0163394c204da3c8a321d258678762050"
+  },
+  {
+    "file": "assets/theatre-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      960,
+      1280
+    ],
+    "sha256": "f52191c0fbcfecf76227b0f618ba653dd0e2262c6061b7d52b9725fb62355c71"
+  },
+  {
+    "file": "assets/theatre-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      1440,
+      1920
+    ],
+    "sha256": "87d4306522b3d6148a1d3cc460b5aa812f14f788c2f7009957b0088b1f9c190e"
+  },
+  {
+    "file": "assets/ideation-480.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      480,
+      640
+    ],
+    "sha256": "f21ca0dbfc58eda35139a8f8fb854e1f947cf66f10172691500df43696e08918"
+  },
+  {
+    "file": "assets/ideation-960.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      960,
+      1280
+    ],
+    "sha256": "89a5d2233eb1b65621a062ec023c7c358e351876a99d3a7ac8f30d24bd1cad88"
+  },
+  {
+    "file": "assets/ideation-1440.webp",
+    "transform": "proportional resize and WebP encoding; no content editing",
+    "dimensions": [
+      1108,
+      1477
+    ],
+    "sha256": "8b758beaa423cfadf4680ed4c126e982bec4caf63a91e4bdcefbeb0dd5465822"
+  },
+  {
+    "file": "fonts/geist-latin-400-normal.woff2",
+    "source": "@fontsource/geist npm package, locally installed",
+    "license": "SIL Open Font License 1.1, included as Geist-OFL.txt",
+    "transform": "none",
+    "sha256": "ead637fd0b6b887d829b3ce3f25fdc242b1de0cfb69c0d97987933675d1315ba"
+  },
+  {
+    "file": "fonts/geist-latin-600-normal.woff2",
+    "source": "@fontsource/geist npm package, locally installed",
+    "license": "SIL Open Font License 1.1, included as Geist-OFL.txt",
+    "transform": "none",
+    "sha256": "edde7cc4e2719898f981a6d970a756030fff75a8ed36dd6a457a60181b889ebf"
+  },
+  {
+    "file": "fonts/Geist-OFL.txt",
+    "source": "@fontsource/geist npm package, locally installed",
+    "license": "SIL Open Font License 1.1, included as Geist-OFL.txt",
+    "transform": "none",
+    "sha256": "71609cbb5c78b5870d712eab73a31d76622635c6ed034ab5cee3b9ecbda8685f"
+  },
+  {
+    "file": "favicon.svg",
+    "type": "authored-identity-mark",
+    "evidence": false,
+    "sha256": "3b120f748ec6db43634a52d509308c6f845ac00a0db9551f14b3c3b51644571d"
+  },
+  {
+    "file": "proof/divia-tiktok-overview-july.html",
+    "type": "metric-excerpt",
+    "bytes": 1734,
+    "sha256": "836a801bbd13302b4ed6889e7b8da32292d5ae851184e1d3edcb4a8c134e042b",
+    "transform": "Curated transcription of selected portfolio metrics. Raw screenshots retained locally."
+  },
+  {
+    "file": "proof/divia-transport-tiktok-aug12.html",
+    "type": "metric-excerpt",
+    "bytes": 1713,
+    "sha256": "d67dfb6105f6d25d3d7abbf1b6dddf708572caa5e4dc630eafd084265d210767",
+    "transform": "Curated transcription of selected portfolio metrics. Raw screenshots retained locally."
+  },
+  {
+    "file": "proof/divia-tour-tiktok-aug12.html",
+    "type": "metric-excerpt",
+    "bytes": 1608,
+    "sha256": "a70901aeaaa15f94aae99b4fca78ddfcead0d67b21ec3dea16926b38fafc549a",
+    "transform": "Curated transcription of selected portfolio metrics. Raw screenshots retained locally."
+  },
+  {
+    "file": "proof/divia-tour-instagram-aug12.html",
+    "type": "metric-excerpt",
+    "bytes": 1607,
+    "sha256": "50baa6641fb314314d3d3b50e4f7126444117fb9468ccb48ddb3219d16aae775",
+    "transform": "Curated transcription of selected portfolio metrics. Raw screenshots retained locally."
+  },
+  {
+    "file": "proof/divia-ambassadors-tiktok-aug12.html",
+    "type": "metric-excerpt",
+    "bytes": 1619,
+    "sha256": "4051d538f58cd364363cb557686e4905c979f07edd9d07f5cf54480af86d8de0",
+    "transform": "Curated transcription of selected portfolio metrics. Raw screenshots retained locally."
+  },
+  {
+    "file": "proof/divia-ambassadors-instagram-aug12.html",
+    "type": "metric-excerpt",
+    "bytes": 1626,
+    "sha256": "aa081961528d4b84475a300c158d2c47409d8c4d8598b6c4a83399c3ca827981",
+    "transform": "Curated transcription of selected portfolio metrics. Raw screenshots retained locally."
+  },
+  {
+    "file": "assets/divia-posts/divia-transport-tiktok.jpeg",
+    "type": "public-post-cover",
+    "transform": "none",
+    "sha256": "c85dc89a347010f9ca352ddb4f0458d8cf699e4fe1d5197c14010e4f2ef8d4e7",
+    "width": 1704,
+    "height": 2132,
+    "sourceUrl": "https://www.tiktok.com/@diviaunpadtv/photo/7667092394432662805",
+    "retrievedAt": "2026-10-06",
+    "attribution": "Divia Unpad TV / team-account content"
+  },
+  {
+    "file": "assets/divia-posts/divia-tour-tiktok.webp",
+    "type": "public-post-cover",
+    "transform": "none",
+    "sha256": "5362c2e2bea2ea37642d038b5a01a4db9be344fdaefb72b5165d3a03411b4999",
+    "width": 540,
+    "height": 720,
+    "sourceUrl": "https://www.tiktok.com/@diviaunpadtv/video/7662964452794404117",
+    "retrievedAt": "2026-10-06",
+    "attribution": "Divia Unpad TV / team-account content"
+  },
+  {
+    "file": "assets/divia-posts/divia-tour-instagram.jpg",
+    "type": "public-post-cover",
+    "transform": "none",
+    "sha256": "64a688ed04453c01cc2be291165567cbcafc541dab9bbb57554c800d9e7f70fd",
+    "width": 540,
+    "height": 960,
+    "sourceUrl": "https://www.instagram.com/diviaunpadtv/reel/Da18rJrhbfM/",
+    "retrievedAt": "2026-10-06",
+    "attribution": "Divia Unpad TV / team-account content"
+  },
+  {
+    "file": "assets/divia-posts/divia-ambassadors-tiktok.avif",
+    "type": "public-post-cover",
+    "transform": "none",
+    "sha256": "0bc5cf129510e34962dec6a68e82d9b3fd26b4fd124ae20d29427cea17008a76",
+    "width": 540,
+    "height": 720,
+    "sourceUrl": "https://www.tiktok.com/@diviaunpadtv/video/7655951176852147476",
+    "retrievedAt": "2026-10-06",
+    "attribution": "Divia Unpad TV / team-account content"
+  },
+  {
+    "file": "assets/divia-posts/divia-ambassadors-instagram.jpg",
+    "type": "public-post-cover",
+    "transform": "none",
+    "sha256": "34432ae1f62d6e233f073d65d40bb62e80ae9d2ce241d4f1bd84efb92f3123ba",
+    "width": 540,
+    "height": 960,
+    "sourceUrl": "https://www.instagram.com/diviaunpadtv/reel/DaFBiw1hznL/",
+    "retrievedAt": "2026-10-06",
+    "attribution": "Divia Unpad TV / team-account content"
+  },
+  {
+    "file": "signal-core.svg",
+    "type": "original conceptual illustration",
+    "transform": "Original SVG geometry and gradients",
+    "sha256": "2de9c4a53252c3f8233ec09cabfd7c2292a68041c27763306b161deb06597833"
+  },
+  {
+    "file": "documents/Raihan_Signals_in_Motion_Portfolio.pdf",
+    "type": "generated public portfolio",
+    "transform": "Ten-page Chromium print export from src/content.json",
+    "sha256": "e14ebdb8804f784d9357522fac428cc9c905427cebda2048ed1fedc36ad024df"
+  }
+]

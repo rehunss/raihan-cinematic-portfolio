@@ -1,0 +1,17 @@
+# Professional content audit
+
+The factual baseline is the public source snapshot at `22ceb3e029971010b5ff59450d82d226d7323092`. Public screenshots and campaign reports support the measurements they show. The published copy is the source for first-hand contributions and dates. A team photo supports participation context and does not verify KPI or staffing counts.
+
+| Entry | Situation and task | Individual action | Outcome and evidence classification |
+| --- | --- | --- | --- |
+| Divia Unpad TV · Jun–Jul 2026 | Three-person campus media marketing team. Platform content, LinkedIn activation and media partnerships. | Planning, LinkedIn copy, audience analysis, company profile and partnership workflow, first-hand. | Account dashboards, original posts and export excerpt support selected results. June 19 carousel recorded 104 clicks and 160 impressions. The export names a teammate as poster. August 12 snapshots are displayed separately from internship-period account totals. |
+| TIRIZ · Oct–Nov 2025 | Five-person Pancarona team ran a two-month academic client campaign. | Strategy, editorial planning, execution and support for creator and booth activation, first-hand. | The original report supports 120 stories vs 40, 16 videos vs 8, 69,024 creator views across four pieces and 814.1 average feed reach vs 1,000. These are team and account outcomes. The booth photo provides event context. |
+| Cakradata · Jan–Feb 2025 | Technology marketing internship with student audiences. | Audience research, media monitoring, content planning, soft-selling copy, explainers and on-camera support, first-hand. | Public work sample illustrates the content. The earlier 13,000 and 2,000 view figures lack a confirmed post identity and analytics window. Omitted from the new public copy and PDF. |
+| Fikomnex · Oct–Dec 2024 | Career event organized by BEM Fikom Unpad. | Led a two-person sponsorship team and coordinated outreach to five student organizations, first-hand. | Team photo establishes context. Partnership numbers are first-hand. |
+| HIMA Mankom · Feb–Dec 2024 | Internship Program for new Communication Management students. | Led nine people and coordinated eight divisions, first-hand. | Program photo establishes context. The 81 of 92 participation figure is explicitly reported. A broad KPI completion claim is held pending evidence. |
+| BEM Fikom Unpad · Mar–Dec 2024 | Organizational support and Welcoming Party for new cabinet staff. | Supervised a 14-member department and led Welcoming Party concept and delivery, first-hand. | Event photo supports context. A broad target achievement claim is held pending evidence. |
+| Home Theatre · Jun–Dec 2024 | Student theatre production. | Co-led HR, coordinating a 15-person team and nine divisions, with recruitment and conflict resolution support, first-hand. | Team photo supports context. No conversion, attendance or quantified impact is inferred. |
+| Ideation / Epicentrum · Feb–Jun 2025 | International strategic communication competition. | Developed four segment concepts and delivered with a seven-person team, first-hand. | Final-day photo supports event context. Delivery counts are first-hand. |
+| Digital marketing course · Nov 2025 | Course completion. | Completed the course. | Public certificate supports name, course and date. |
+
+The portrait, project covers, event images, public proof excerpts and documents are drawn from the reference snapshot. The Signal Core and its static illustration are conceptual. No generated documentary imagery was used.

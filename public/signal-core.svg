@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="560" viewBox="0 0 560 560">
+  <defs>
+    <radialGradient id="glow">
+      <stop stop-color="#799cd0" stop-opacity=".51"/>
+      <stop offset="1" stop-color="#294970" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glass" cx=".32" cy=".21" r=".88">
+      <stop stop-color="#28476e"/>
+      <stop offset=".58" stop-color="#111e35"/>
+      <stop offset="1" stop-color="#070d17"/>
+    </radialGradient>
+    <linearGradient id="metal" x1=".16" y1="0" x2=".82" y2="1">
+      <stop stop-color="#f7f4e9"/>
+      <stop offset=".20" stop-color="#b7c5d7"/>
+      <stop offset=".38" stop-color="#48596e"/>
+      <stop offset=".66" stop-color="#8191a6"/>
+      <stop offset="1" stop-color="#28384e"/>
+    </linearGradient>
+    <linearGradient id="edge" x2="0" y2="1">
+      <stop stop-color="#92aac8"/>
+      <stop offset="1" stop-color="#122134"/>
+    </linearGradient>
+    <linearGradient id="diamond" x2=".86" y2="1">
+      <stop stop-color="#d8edff"/>
+      <stop offset=".49" stop-color="#71adf5"/>
+      <stop offset="1" stop-color="#20467d"/>
+    </linearGradient>
+    <path id="segment" d="M -49,-151 -66,-201 0,-226 66,-201 49,-151 Z"/>
+    <g id="shell">
+      <use href="#segment"/><use href="#segment" transform="rotate(45)"/>
+      <use href="#segment" transform="rotate(90)"/><use href="#segment" transform="rotate(135)"/>
+      <use href="#segment" transform="rotate(180)"/><use href="#segment" transform="rotate(225)"/>
+      <use href="#segment" transform="rotate(270)"/><use href="#segment" transform="rotate(315)"/>
+    </g>
+  </defs>
+  <circle cx="280" cy="280" r="276" fill="url(#glow)"/>
+  <g fill="none" stroke="#b0cef5" opacity=".23">
+    <circle cx="280" cy="280" r="252" stroke-dasharray="1 7"/>
+    <circle cx="280" cy="280" r="239"/>
+    <path d="M280 20v18m0 484v18M20 280h18m484 0h18"/>
+  </g>
+  <g transform="translate(280 280) rotate(-18) scale(.84 .99)">
+    <g transform="translate(24 15)" fill="url(#edge)" stroke="#2a3b51" stroke-width="2">
+      <use href="#shell"/>
+    </g>
+    <circle cx="9" cy="7" r="151" fill="#192536" stroke="#51637b" stroke-width="3"/>
+    <use href="#shell" fill="url(#metal)" stroke="#b1c0d4" stroke-width="1.15"/>
+    <circle r="132" fill="url(#edge)" stroke="#344763" stroke-width="2"/>
+    <circle r="115" fill="url(#glass)" stroke="#99caff" stroke-width="3"/>
+    <circle r="103" fill="none" stroke="#6d9bd4" stroke-dasharray="2 5" opacity=".57"/>
+    <path d="M0-68 63 0 0 68-63 0Z" fill="url(#diamond)" stroke="#9bc6ff" stroke-width="1.5"/>
+    <path d="M0-68 14 10 63 0 0 68 14 10-63 0Z" fill="#1d3d6c" opacity=".64"/>
+    <path d="M0-68 14 10-63 0Z" fill="#d8edff" opacity=".42"/>
+  </g>
+</svg>

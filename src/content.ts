@@ -1,0 +1,16 @@
+import raw from './content.json';
+export type Evidence={id:string;label:string;file:string;alt:string;context:string;url?:string;urlLabel?:string;download?:string;downloadLabel?:string;excerpt?:string;metricIds?:string[];width?:number;height?:number};
+export type Metric={id:string;label:string;value:number;display:string;unit:string;period:string;attribution:string;sourceId:string;note:string;target?:number;rolePeriod?:string};
+export type Project={id:string;name:string;category:string;period:string;headline:string;narrative:string;contribution:string;takeaway:string;sample:string;sampleAlt:string;sampleCaption:string;sourceIds:string[];metricIds:string[];logo:string;logoAlt:string;logoWidth:number;logoHeight:number};
+export type Experience={id:string;name:string;role:string;period:string;type:string;text:string;sourceId:string;image:string;headline:string;context:string;contribution:string;result:string;logo:string;logoAlt:string;brandLabel:string;logoWidth:number;logoHeight:number;highlights:{value:string;label:string}[]};
+export const content=raw;
+export const projects:Project[]=raw.projects;
+export const experiences:Experience[]=raw.experience;
+export const metrics:Metric[]=raw.metrics;
+export const sources:Evidence[]=raw.sources;
+export const metric=(id:string)=>metrics.find(m=>m.id===id)!;
+export const source=(id:string)=>sources.find(s=>s.id===id)!;
+export const asset=(path:string)=>`${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+export const media=(id:string)=>raw.media[id as keyof typeof raw.media];
+export const publicLink=(path:string)=>content.settings.publicDocumentBase+path;
+export const format=(n:number,digits?:number)=>new Intl.NumberFormat('en-US',{maximumFractionDigits:digits??1,minimumFractionDigits:digits??0}).format(n);
