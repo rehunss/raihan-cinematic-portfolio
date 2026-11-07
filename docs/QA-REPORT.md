@@ -21,3 +21,14 @@ git diff --check
 ```
 
 The Flow footage is an open release checkpoint. Its rendering, network behavior and runtime blending require review after approved clips are present.
+
+## Measured preview
+
+One local Chrome sample per profile measured initial paint separately from first WebGL frame. The mobile profile emulated 390 × 844, 4× CPU slowdown, 150 ms RTT and 1.6 Mbps down. These observations describe the local software-rendered browser.
+
+| Profile | Largest contentful paint | Layout shift | First live frame observed |
+| --- | ---: | ---: | ---: |
+| Desktop | 0.45 s | 0.008 | 2.48 s |
+| Throttled mobile | 1.36 s | 0.000 | 7.05 s |
+
+The live scene bundle is about 303 kB gzip and loads after initial HTML and CSS. The full journey was recorded in both directions from Chrome’s compositor at 960 × 540. The local `qa/v5/scroll-review.webm` contains 613 captured frames. These measurements do not establish GPU performance on physical mobile devices.
