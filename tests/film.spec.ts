@@ -60,7 +60,8 @@ test('the case and nested evidence return to the same scroll, camera and trigger
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('./?debug-world=1#work-tiriz');
   await expect(page.locator(readyCanvas)).toBeVisible({ timeout: 30_000 });
-  await stopAt(page, 'work-tiriz');
+  await expect(page.locator('.cinematic')).toHaveAttribute('data-shot', 'work-tiriz');
+  expect(Math.abs(await page.locator('#work-tiriz').evaluate(el => el.getBoundingClientRect().top))).toBeLessThan(1);
   const trigger = page.locator('#work-tiriz a[href="#tiriz"]');
   await trigger.focus();
   const beforeScroll = await page.evaluate(() => scrollY);

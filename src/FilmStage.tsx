@@ -36,8 +36,8 @@ function LiveStage({ onReadyChange }: { onReadyChange: (ready: boolean) => void 
   const fallBack = useCallback(() => setLost(true), []);
   useEffect(() => {
     onReadyChange(ready && !lost);
-    return () => onReadyChange(false);
   }, [ready, lost, onReadyChange]);
+  useEffect(() => () => onReadyChange(false), [onReadyChange]);
 
   if (!supported || lost) return null;
   return (

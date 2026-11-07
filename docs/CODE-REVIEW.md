@@ -4,6 +4,7 @@ Scope is the V5 branch against the live V4 baseline. The review covered scroll a
 
 | Finding | Resolution |
 | --- | --- |
+| A cold load of a work link could land on the previous exhibit when the cinematic layout expanded. | The layout switch preserves the chapter and fractional position. The TIRIZ test opens the deep link from a fresh page. |
 | Global anchor scroll margin stopped work links before their camera keyframes. | Live world stops now clear that margin. Reading targets keep clearance beneath the fixed header. |
 | Rendering a selected case alongside the hidden archive duplicated chart element IDs. | The archive is omitted while a live case is open. Chart keyboard and ARIA targets stay unique. |
 | The Cakradata screen was partly hidden behind a rack member at its keyframe. | The exhibit moved in front of the obstruction. |

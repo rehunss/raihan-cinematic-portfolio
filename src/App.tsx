@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, List, Pause, Play, X } from '@phosphor-icons/react';
 import CaseStudies from './CaseStudies';
 import { external, ProofDialog } from './Evidence';
@@ -79,19 +79,43 @@ export default function App() {
   const [selected, setSelected] = useState<string | null>(null);
   const [proof, setProof] = useState<string[] | null>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+  const routePosition = useRef<{ id: string; fraction: number } | null>(null);
+  const rememberPosition = useCallback(() => {
+    const chapter = [...(track.current?.children ?? [])].reverse()
+      .find(element => element.getBoundingClientRect().top < 1);
+    const bounds = chapter?.getBoundingClientRect();
+    routePosition.current = chapter && bounds && bounds.bottom > 0
+      ? { id: chapter.id, fraction: Math.max(0, -bounds.top / bounds.height) }
+      : null;
+  }, []);
+  const onReadyChange = useCallback((next: boolean) => {
+    rememberPosition();
+    setReady(next);
+  }, [rememberPosition]);
   const motion = hydrated && preferred && !reduce;
   const active = motion && ready;
 
+  useLayoutEffect(() => {
+    const position = routePosition.current;
+    routePosition.current = null;
+    if (!position) return;
+    const chapter = document.getElementById(position.id);
+    if (!chapter) return;
+    const bounds = chapter.getBoundingClientRect();
+    window.scrollTo({ top: scrollY + bounds.top + bounds.height * position.fraction, behavior: 'instant' });
+  }, [active]);
+
   useEffect(() => {
     const query = matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setReduce(query.matches);
+    const sync = () => { rememberPosition(); setReduce(query.matches); };
     sync();
     try { setPreferred(localStorage.getItem('raihan-motion') !== 'off'); }
     catch { /* The control remains available without storage. */ }
     setHydrated(true);
     query.addEventListener('change', sync);
     return () => query.removeEventListener('change', sync);
-  }, []);
+  }, [rememberPosition]);
 
   useEffect(() => {
     document.documentElement.dataset.motion = motion ? 'on' : 'off';
@@ -129,6 +153,7 @@ export default function App() {
 
   function toggleMotion() {
     if (reduce) return;
+    rememberPosition();
     const next = !preferred;
     setPreferred(next);
     try { localStorage.setItem('raihan-motion', next ? 'on' : 'off'); }
@@ -146,7 +171,7 @@ export default function App() {
 
   return (
     <div className="cinematic" data-interactive={hydrated} data-world-ready={active}>
-      <FilmStage enabled={motion} onReadyChange={setReady} />
+      <FilmStage enabled={motion} onReadyChange={onReadyChange} />
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="world-header">
         <a className="world-brand" href="#profile" aria-label="The Architecture of Ideas, opening">
@@ -172,7 +197,7 @@ export default function App() {
         {shots.map(shot => <span key={shot.id} data-route-stop={shot.id}>{shot.index}</span>)}
       </aside>
       <main id="main" tabIndex={-1}>
-        <div data-world-track>
+        <div ref={track} data-world-track>
           <Chapter id="profile">
             <p className="film-code arrival-title">The Architecture of Ideas</p>
             <h1 id="profile-title">Muhammad Raihan <br />Ramadhan</h1>
