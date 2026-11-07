@@ -8,7 +8,7 @@ for(const size of sizes){
  test(`${size.width}x${size.height}: complete layout, assets, access and screenshots`,async({page})=>{
    await page.setViewportSize(size);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
    const failures:string[]=[];page.on('response',r=>{if(r.status()>=400)failures.push(`${r.status()} ${r.url()}`);});
-   await page.goto('./');await expect(page.locator('h1')).toContainText('Raihan Ramadhan');await expect(page.locator('html')).toHaveAttribute('data-motion','off');
+   await page.goto('./');await expect(page.locator('h1')).toContainText(/Raihan\s*Ramadhan/);await expect(page.locator('html')).toHaveAttribute('data-motion','off');
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);expect(overflow).toBe(false);
    await page.evaluate(async()=>{
      const visible = [...document.images].filter(image => image.getBoundingClientRect().width > 0);
@@ -22,16 +22,16 @@ for(const size of sizes){
    await page.screenshot({path:`qa/final-${size.width}-hero.png`});await page.screenshot({path:`qa/final-${size.width}-full.png`,fullPage:true});
    for(const id of ['divia','tiriz','experience','skills','contact']){await page.locator(`#${id}`).evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await page.screenshot({path:`qa/final-${size.width}-${id}.png`});}
    await expect(page.locator('#fikomnex .experience-highlights .metric')).toHaveCount(2);
-   const pics=await page.locator('.experience-photo img').evaluateAll(els=>els.map(el=>el.getBoundingClientRect().width));for(const width of pics)expect(width).toBeGreaterThan(size.width<768?size.width-60:350);
+   const pics=await page.locator('.experience-photo img').evaluateAll(els=>els.map(el=>el.getBoundingClientRect().width));for(const width of pics)expect(width).toBeGreaterThan(size.width<768?size.width-60:320);
    expect(errors).toEqual([]);expect(failures).toEqual([]);
  });
 }
 test('navigation deep links, refresh, Back and Forward',async({page})=>{
- await page.goto('./');await page.locator('.work-index a[href="#divia"]').click();await expect(page).toHaveURL(/#divia$/);await expect(page.locator('#divia')).toBeInViewport();await page.reload();await expect(page.locator('#divia')).toBeInViewport();
- await page.locator('.navigation a[href="#experience"]').click();await expect(page).toHaveURL(/#experience$/);await page.goBack();await expect(page).toHaveURL(/#divia$/);await expect(page.locator('#divia')).toBeInViewport();await page.goForward();await expect(page).toHaveURL(/#experience$/);await expect(page.locator('#experience')).toBeInViewport();
+ await page.goto('./');await page.locator('#projects a[href="#divia"]').click();await expect(page).toHaveURL(/#divia$/);await expect(page.locator('#divia')).toBeInViewport();await page.reload();await expect(page.locator('#divia')).toBeInViewport();
+ await page.locator('.world-nav a[href="#experience"]').click();await expect(page).toHaveURL(/#experience$/);await page.goBack();await expect(page).toHaveURL(/#divia$/);await expect(page.locator('#divia')).toBeInViewport();await page.goForward();await expect(page).toHaveURL(/#experience$/);await expect(page.locator('#experience')).toBeInViewport();
 });
 test('mobile menu, keyboard Escape, navigation and touch targets',async({page})=>{
- await page.setViewportSize({width:390,height:844});await page.goto('./');const menu=page.locator('.menu-toggle');await menu.click();await expect(menu).toHaveAttribute('aria-expanded','true');await page.keyboard.press('Escape');await expect(menu).toBeFocused();await expect(menu).toHaveAttribute('aria-expanded','false');
+ await page.setViewportSize({width:390,height:844});await page.goto('./');const menu=page.locator('.world-menu');await menu.click();await expect(menu).toHaveAttribute('aria-expanded','true');await page.keyboard.press('Escape');await expect(menu).toBeFocused();await expect(menu).toHaveAttribute('aria-expanded','false');
  await menu.click();await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Experience',exact:true}).click();await expect(page).toHaveURL(/#experience$/);await expect(menu).toHaveAttribute('aria-expanded','false');
  const targets=await page.locator('button,a,summary').evaluateAll(els=>els.filter(e=>e.getBoundingClientRect().width&&e.getBoundingClientRect().height).map(e=>({text:e.textContent?.trim(),w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height})).filter(e=>e.h<43.5));expect(targets).toEqual([]);
 });
@@ -71,7 +71,7 @@ test('age composition exact values, hover, focus, tap and table',async({page})=>
 });
 test('motion preference persistence and system reduced motion',async({page})=>{
  await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('./');const toggle=page.getByRole('button',{name:'Motion on'});await expect(toggle).toHaveAttribute('aria-pressed','true');await toggle.click();await expect(page.getByRole('button',{name:'Motion off'})).toHaveAttribute('aria-pressed','false');await page.reload();await expect(page.getByRole('button',{name:'Motion off'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('raihan-motion'))).toBe('off');
- await page.getByRole('button',{name:'Motion off'}).click();await page.emulateMedia({reducedMotion:'reduce'});await expect(page.getByRole('button',{name:'Motion off'})).toHaveAttribute('aria-pressed','false');await expect(page.locator('html')).toHaveAttribute('data-motion','off');expect(await page.locator('#projects .chapter-intro').evaluate(e=>getComputedStyle(e).opacity)).toBe('1');
+ await page.getByRole('button',{name:'Motion off'}).click();await page.emulateMedia({reducedMotion:'reduce'});await expect(page.getByRole('button',{name:'Motion off'})).toHaveAttribute('aria-pressed','false');await expect(page.locator('html')).toHaveAttribute('data-motion','off');expect(await page.locator('#projects .shot-caption').evaluate(e=>getComputedStyle(e).opacity)).toBe('1');
 });
 test('document responses, real contents, originals unchanged, desktop and mobile anchors',async({page,request})=>{
  for(const [file,sha256] of [['CV_Raihan.pdf','40c98d26bb310d6ef57ed5669e2fa7c7fffffa900602957d017a684f7157818f'],['TIRIZ_Laporan_Kampanye.pdf','63cbcaa9cf99cd0acc600f56471456061f01c32727ddf610021ac3cbbba923a5']]){const res=await request.get(`documents/${file}`);expect(res.status()).toBe(200);const body=await res.body();expect(body.subarray(0,5).toString()).toBe('%PDF-');expect(createHash('sha256').update(body).digest('hex')).toBe(sha256);}

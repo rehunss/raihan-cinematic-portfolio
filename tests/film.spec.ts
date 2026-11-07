@@ -1,56 +1,85 @@
 import { expect, test, type Page } from '@playwright/test';
 
-async function renderedFrame(page: Page) {
-  return page.locator('.film-live canvas').evaluate(canvas => {
-    const frame = (canvas as HTMLCanvasElement).toDataURL();
-    let hash = 0;
-    for (let index = 0; index < frame.length; index++) hash = Math.imul(31, hash) + frame.charCodeAt(index) | 0;
-    return hash;
-  });
+const stopIds = ['profile', 'about', 'projects', 'work-tiriz', 'work-cakradata', 'experience', 'impact', 'contact'];
+const readyCanvas = '.film-live[data-ready=true] canvas';
+
+async function pose(page: Page) {
+  const raw = await page.locator(readyCanvas).getAttribute('data-camera-pose');
+  return JSON.parse(raw!) as { position: number[]; target: number[]; quaternion: number[] };
 }
 
 async function moveTo(page: Page, top: number) {
   await page.evaluate(y => window.scrollTo({ top: y, behavior: 'instant' }), top);
 }
 
-test('one live WebGL canvas scrubs, pauses and reverses across six chapters', async ({ page }) => {
+async function stopAt(page: Page, id: string) {
+  await page.locator('#' + id).evaluate(element => element.scrollIntoView({ behavior: 'instant' }));
+  await expect(page.locator('.cinematic')).toHaveAttribute('data-shot', id);
+}
+
+test('the persistent canvas travels, holds and reverses across eight shots', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await page.addInitScript(() => {
-    const original = HTMLCanvasElement.prototype.getContext;
-    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
-      value(this: HTMLCanvasElement, type: string, options: Record<string, unknown>) {
-        return Reflect.apply(original, this, [type, type === 'webgl2' ? { ...options, preserveDrawingBuffer: true } : options]);
-      },
-    });
-  });
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-  await page.goto('./');
-  await expect(page.locator('.film-live[data-ready=true] canvas')).toBeVisible({ timeout: 30_000 });
-  const canvas = page.locator('.film-live canvas');
+  await page.goto('./?debug-world=1');
+  const canvas = page.locator(readyCanvas);
+  await expect(canvas).toBeVisible({ timeout: 30_000 });
   await canvas.evaluate(el => { el.dataset.instance = 'original'; });
-  await expect(page.locator('.signal-still')).toHaveCSS('opacity', '0');
-  const start = await renderedFrame(page);
-  await page.screenshot({ path: 'qa/film-live-opening.png' });
-  const aboutTop = await page.locator('#about').evaluate(element => element.getBoundingClientRect().top + scrollY);
-  for (const fraction of [0.12, 0.24, 0.38, 0.53]) await moveTo(page, aboutTop * fraction);
-  await expect.poll(() => renderedFrame(page)).not.toBe(start);
-  const paused = await renderedFrame(page);
-  await page.waitForTimeout(350);
-  expect(await renderedFrame(page)).toBe(paused);
-  for (const id of ['about', 'projects', 'experience', 'impact', 'contact']) {
-    await page.locator('#' + id).evaluate(element => element.scrollIntoView({ behavior: 'instant' }));
+  const start = await pose(page);
+  const aboutTop = await page.locator('#about').evaluate(el => el.getBoundingClientRect().top + scrollY);
+  await moveTo(page, aboutTop * .3);
+  await expect.poll(() => pose(page)).not.toEqual(start);
+  const paused = await pose(page);
+  await page.waitForTimeout(300);
+  expect(await pose(page)).toEqual(paused);
+
+  const positions: number[] = [];
+  for (const id of stopIds) {
+    await stopAt(page, id);
     await page.screenshot({ path: 'qa/film-live-' + id + '.png' });
+    positions.push((await pose(page)).position[2]);
     await expect(canvas).toHaveAttribute('data-instance', 'original');
   }
+  expect(new Set(positions).size).toBe(stopIds.length);
+  expect(positions.at(-1)!).toBeLessThan(-185);
+  expect((await pose(page)).quaternion).not.toEqual(start.quaternion);
+  expect((await pose(page)).target).not.toEqual(start.target);
   await moveTo(page, 0);
-  await expect.poll(() => renderedFrame(page)).toBe(start);
+  await expect.poll(() => pose(page)).toEqual(start);
+
   await page.setViewportSize({ width: 390, height: 844 });
+  await stopAt(page, 'work-tiriz');
   await expect(canvas).toHaveAttribute('data-instance', 'original');
-  await expect.poll(() => renderedFrame(page)).not.toBe(start);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   await page.screenshot({ path: 'qa/film-live-390.png' });
   expect(errors).toEqual([]);
+});
+
+test('the case and nested evidence return to the same scroll, camera and trigger', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('./?debug-world=1#work-tiriz');
+  await expect(page.locator(readyCanvas)).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('.cinematic')).toHaveAttribute('data-shot', 'work-tiriz');
+  expect(Math.abs(await page.locator('#work-tiriz').evaluate(el => el.getBoundingClientRect().top))).toBeLessThan(1);
+  const trigger = page.locator('#work-tiriz a[href="#tiriz"]');
+  await trigger.focus();
+  const beforeScroll = await page.evaluate(() => scrollY);
+  const beforePose = await pose(page);
+  await page.keyboard.press('Enter');
+  const dossier = page.getByRole('dialog', { name: 'TIRIZ' });
+  await expect(dossier).toBeVisible();
+  const proof = dossier.getByRole('button', { name: 'View project proof' });
+  await proof.click();
+  await expect(page.getByRole('dialog', { name: 'View proof' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(proof).toBeFocused();
+  await page.screenshot({ path: 'qa/v5-case-dialog.png' });
+  await page.keyboard.press('Escape');
+  await expect(dossier).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  expect(await page.evaluate(() => scrollY)).toBe(beforeScroll);
+  await expect.poll(() => pose(page)).toEqual(beforePose);
 });
 
 test('WebGL absence and system reduced motion preserve navigation and evidence', async ({ page }) => {
@@ -65,11 +94,11 @@ test('WebGL absence and system reduced motion preserve navigation and evidence',
     });
   });
   await page.goto('./');
-  await expect(page.locator('.signal-still')).toHaveCSS('opacity', '1');
+  await expect(page.locator('#profile .shot-frame')).toHaveCSS('background-image', /arrival.*webp/);
   await expect(page.locator('canvas')).toHaveCount(0);
   await page.getByRole('link', { name: 'Explore selected work' }).click();
   await expect(page).toHaveURL(/#projects$/);
-  await page.locator('.gallery-index').getByRole('link', { name: /TIRIZ/ }).click();
+  await page.locator('#work-tiriz a[href="#tiriz"]').click();
   await expect(page).toHaveURL(/#tiriz$/);
   await page.locator('#tiriz').getByRole('button', { name: 'View project proof' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -79,10 +108,10 @@ test('WebGL absence and system reduced motion preserve navigation and evidence',
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
 
-test('context loss replaces the scene with the static illustration', async ({ page }) => {
+test('context loss restores the architectural posters and reading index', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('./');
-  const canvas = page.locator('.film-live[data-ready=true] canvas');
+  const canvas = page.locator(readyCanvas);
   await expect(canvas).toBeVisible({ timeout: 30_000 });
   const extension = await canvas.evaluate(element => {
     const lose = (element as HTMLCanvasElement).getContext('webgl2')?.getExtension('WEBGL_lose_context');
@@ -91,22 +120,70 @@ test('context loss replaces the scene with the static illustration', async ({ pa
   });
   expect(extension).toBe(true);
   await expect(canvas).toHaveCount(0);
-  await expect(page.locator('.signal-still')).toHaveCSS('opacity', '1');
-  await expect(page.getByRole('link', { name: 'Explore selected work' })).toBeVisible();
+  await expect(page.locator('#profile .shot-frame')).toHaveCSS('background-image', /arrival.*webp/);
+  await expect(page.getByRole('region', { name: 'Portfolio archive' })).toBeVisible();
 });
 
-test('prerendered chapters, published work and downloads are readable with scripts disabled', async ({ browser, baseURL }) => {
+test('prerendered chapters, published work and downloads are readable without scripts', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
   try {
     const page = await context.newPage();
     await page.goto('./');
-    await expect(page.getByRole('heading', { name: 'Muhammad Raihan Ramadhan' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Muhammad Raihan\s*Ramadhan/ })).toBeVisible();
     await page.getByRole('link', { name: 'Explore selected work' }).click();
     await expect(page).toHaveURL(/#projects$/);
-    await page.locator('.gallery-index').getByRole('link', { name: /Divia Unpad TV/ }).click();
+    await page.locator('#projects a[href="#divia"]').click();
     await expect(page.locator('#divia')).toContainText('104 clicks from 160 impressions');
     await expect(page.getByRole('link', { name: 'Portfolio PDF' })).toHaveAttribute('href', /Raihan_Signals_in_Motion_Portfolio\.pdf$/);
   } finally {
     await context.close();
   }
+});
+
+async function moveToPhase(page: Page, phase: number) {
+  await page.evaluate(({phase, ids}) => {
+    const start = Math.floor(phase);
+    const fraction = phase - start;
+    const from = document.getElementById(ids[start])!.getBoundingClientRect().top + scrollY;
+    const to = document.getElementById(ids[start + 1])!.getBoundingClientRect().top + scrollY;
+    scrollTo({top:from + (to - from) * fraction, behavior:'instant'});
+  }, { phase, ids: stopIds });
+}
+
+test('the three Flow clips load on demand and scrub in both directions', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', request => { if (request.url().endsWith('.webm')) requests.push(request.url()); });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('./');
+  await expect(page.locator(readyCanvas)).toBeVisible({ timeout: 30_000 });
+  const player = page.locator('.flow-insert video');
+  await expect(player).toHaveCount(0);
+  expect(requests).toEqual([]);
+
+  for (const { name, forward, back } of [
+    { name: 'arrival', forward: .39, back: .21 },
+    { name: 'transformation', forward: 5.22, back: 4.85 },
+    { name: 'departure', forward: 6.9, back: 6.74 },
+  ]) {
+    await moveToPhase(page, forward);
+    await expect(player).toHaveAttribute('src', new RegExp('/' + name + '[-.].*webm$'));
+    const readTime = () => player.evaluate(video => (video as HTMLVideoElement).currentTime);
+    await expect.poll(readTime).toBeGreaterThan(5);
+    await expect.poll(() => player.evaluate(video => (video as HTMLVideoElement).videoWidth)).toBe(1280);
+    expect(await player.evaluate(video => (video as HTMLVideoElement).paused)).toBe(true);
+    const held = await readTime();
+    await page.waitForTimeout(250);
+    expect(await readTime()).toBe(held);
+    await moveToPhase(page, back);
+    await expect.poll(readTime).toBeLessThan(held - 1);
+    await expect.poll(() => page.locator('.flow-insert').evaluate(el => Number(getComputedStyle(el).opacity))).toBeGreaterThan(.1);
+    await page.screenshot({ path: 'qa/v5/flow-integrated-' + name + '.png' });
+  }
+
+  expect(requests.some(url => url.includes('arrival-'))).toBe(true);
+  expect(requests.some(url => url.includes('transformation-'))).toBe(true);
+  expect(requests.some(url => url.includes('departure-'))).toBe(true);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(player).toHaveCount(0);
+  await expect(page.locator(readyCanvas)).toHaveCount(0);
 });

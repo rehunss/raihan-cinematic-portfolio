@@ -1,18 +1,12 @@
 # Project status
 
-Updated November 6, 2026.
+## The Architecture of Ideas
 
-## Local implementation
+- The V4 production baseline is `1e712714ebed61a24b19de1073466dbf65ee5a07`. It is preserved on local and remote branch `backup/pre-v5-cinematic`.
+- The V5 redesign is in the independent `rehunss/raihan-cinematic-portfolio` repository. The original portfolio repository was used as read-only input.
+- The live reference and previous production site were inspected in Chrome’s in-app browser. The first two original shots were rendered and reviewed before connecting the remaining rooms.
+- The eight camera stops, live case dialogs, and HTML archive are implemented. A browser recording, performance measurements, and desktop and mobile renders are in the local `qa/v5/` folder.
+- The two approved drafts and all three approved 720p finals completed in Google Flow. The account was verified at 162 credits after an actual charge of 88. The site uses the three reviewed silent WebM encodes.
+- The release is tracked by [PR #1](https://github.com/rehunss/raihan-cinematic-portfolio/pull/1) and the [GitHub Pages workflow](https://github.com/rehunss/raihan-cinematic-portfolio/actions/workflows/pages.yml). Main-branch CI builds and deploys the production site.
 
-- Read-only source clone at `../portfolio-source-reference`, commit `22ceb3e029971010b5ff59450d82d226d7323092`. The reference remote has a disabled push URL.
-- Independent working tree on `main`. The six chapters, scroll-controlled Three.js scene, work gallery, original proof and chart components, accessibility fallback and ten-page PDF are implemented.
-- A clean locked install and TypeScript/production build passed. All 20 Playwright tests passed after the evidence update. See `QA-REPORT.md` for the mobile Lighthouse results, asset checks and PDF verification.
-- GitHub Pages CI workflow is in `.github/workflows/pages.yml`. The original live homepage returned HTTP 200. The intended new repository and Pages address returned 404 before publication.
-- The November 6 follow-up added linked public Cakradata view snapshots and exact role attribution. The HIMA and BEM cases use documented registration and attendance measures. The internal reports stay outside the checkout.
-- Google Flow usage is **0 credits**.
-
-## Publication
-
-The portable GitHub CLI authenticated as `rehunss`. The deployment target is the independent `rehunss/raihan-cinematic-portfolio` repository, with GitHub Actions as the Pages build source.
-
-Check the current status under Actions, then verify the deployment URL with `PORTFOLIO_TEST_URL` set to its published base. The initial checks were performed in the independent checkout. The source repository was used as a read-only reference.
+Build with `npm run build`, start `npm run preview`, then open [the local preview](http://127.0.0.1:4174/raihan-cinematic-portfolio/). The production destination is [The Architecture of Ideas on GitHub Pages](https://rehunss.github.io/raihan-cinematic-portfolio/).

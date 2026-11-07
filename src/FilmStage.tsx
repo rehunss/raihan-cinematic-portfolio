@@ -1,13 +1,18 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useState, type ReactNode } from 'react';
-import { asset } from './content';
+
+import { FlowInsert } from './film/FlowInsert';
 
 const Scene = lazy(() => import('./film/Scene'));
 
-class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+class SceneBoundary extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
   state = { failed: false };
 
   static getDerivedStateFromError() {
     return { failed: true };
+  }
+
+  componentDidCatch() {
+    this.props.onError();
   }
 
   render() {
@@ -15,7 +20,8 @@ class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean
   }
 }
 
-function LiveStage() {
+function LiveStage({ onReadyChange }: { onReadyChange: (ready: boolean) => void }) {
+  const [lost, setLost] = useState(false);
   const [supported] = useState(() => {
     try {
       const context = document.createElement('canvas').getContext('webgl2');
@@ -26,45 +32,40 @@ function LiveStage() {
     }
   });
   const [ready, setReady] = useState(false);
-  const [lost, setLost] = useState(false);
   const showScene = useCallback(() => setReady(true), []);
   const fallBack = useCallback(() => setLost(true), []);
+  useEffect(() => {
+    onReadyChange(ready && !lost);
+  }, [ready, lost, onReadyChange]);
+  useEffect(() => () => onReadyChange(false), [onReadyChange]);
 
   if (!supported || lost) return null;
   return (
     <div className="film-live" data-ready={ready}>
-      <SceneBoundary>
+      <SceneBoundary onError={fallBack}>
         <Suspense fallback={null}>
           <Scene onReady={showScene} onContextLost={fallBack} />
         </Suspense>
+        {ready && <FlowInsert />}
       </SceneBoundary>
     </div>
   );
 }
 
-export function FilmStage({ enabled }: { enabled: boolean }) {
+export function FilmStage({ enabled, onReadyChange }: { enabled: boolean; onReadyChange: (ready: boolean) => void }) {
   const [interactive, setInteractive] = useState(false);
-
   useEffect(() => {
     if (!enabled) {
       setInteractive(false);
       return;
     }
     const start = () => setInteractive(true);
-    const delay = matchMedia('(max-width: 767px)').matches ? 1800 : 750;
-    const timer = window.setTimeout(start, delay);
+    const timer = window.setTimeout(start, 500);
     addEventListener('scroll', start, { passive: true, once: true });
-    return () => {
-      clearTimeout(timer);
-      removeEventListener('scroll', start);
-    };
+    return () => { clearTimeout(timer); removeEventListener('scroll', start); };
   }, [enabled]);
 
-  return (
-    <div className="film-stage" aria-hidden="true">
-      <div className="film-grid" />
-      <img className="signal-still" src={asset('signal-core.svg')} width="560" height="560" alt="" fetchPriority="high" />
-      {enabled && interactive && <LiveStage />}
-    </div>
-  );
+  return <div className="film-stage" aria-hidden="true">
+    {enabled && interactive && <LiveStage onReadyChange={onReadyChange} />}
+  </div>;
 }

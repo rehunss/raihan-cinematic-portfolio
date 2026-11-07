@@ -1,20 +1,19 @@
 # Code review
 
-Structured review of the independent checkout against the source at `22ceb3e029971010b5ff59450d82d226d7323092`. The review covered the React entry points, SSR and hydration, scene lifecycle, source data, asset paths, interactive charts, dialogs, print view and Pages workflow.
+Scope is the V5 branch against the live V4 baseline. The review covered scroll and resize behavior, the case and proof layers, prerendering, asset handling and release workflow.
 
 | Finding | Resolution |
 | --- | --- |
-| Initial rendering waited for the interactive app and could contend with WebGL setup. | Build-time HTML renders all chapters. A static Signal Core appears immediately, with deferred WebGL and a lazy print bundle. |
-| SVG titles with multiple text children and preloaded resources inside the hydration root caused a React mismatch. | Chart titles render one string. Preload links move to the document head. Chrome smoke checks reported zero hydration errors after the changes. |
-| Legacy asset fields referenced removed filenames. | Project samples and leadership photographs point to real responsive assets. |
-| Original browser tests could wait indefinitely on images inside closed disclosure panels. | Tests await hydration, then decode visible images. The print test waits for the lazy print bundle before measuring layout. |
-| Old reveal effects and prior layout selectors increased the initial bundle. | Removed Motion, the duplicate Geist package and obsolete layout rules. The existing chart, dialog and print styles remain in use. |
-| Initial npm audit reported five advisories in the inherited toolchain. | Applied compatible fixes to the locked tree. The updated npm audit reported zero vulnerabilities. |
-| Cakradata’s older counts and general leadership KPI claims lacked source scope. | Replaced them with dated public post snapshots, clarified the individual production role, and used the exact registration and attendance measures from the leadership reports. |
-| Software rendering or context loss can interrupt the 3D layer. | The HTML, chart controls and static art remain available. Browser coverage exercises missing WebGL and synthetic context loss. |
+| A cold load of a work link could land on the previous exhibit when the cinematic layout expanded. | The layout switch preserves the chapter and fractional position. The TIRIZ test opens the deep link from a fresh page. |
+| Global anchor scroll margin stopped work links before their camera keyframes. | Live world stops now clear that margin. Reading targets keep clearance beneath the fixed header. |
+| Rendering a selected case alongside the hidden archive duplicated chart element IDs. | The archive is omitted while a live case is open. Chart keyboard and ARIA targets stay unique. |
+| The Cakradata screen was partly hidden behind a rack member at its keyframe. | The exhibit moved in front of the obstruction. |
+| A mobile accordion summary measured 29 px in the first test pass. | The summary now provides a 44 px touch target. |
+| A moving caption vignette could create a horizontal edge between chapters. | The vignette now stays fixed over the continuous stage. Static fallback posters retain their own contrast gradient. |
+| Flow defaulted to two outputs. | The production instructions and ledger require a visible x1 and exact amount check at each submission. |
 
-The 3D code uses an original octagonal form and public project thumbnails. The camera design adapts the idea of a continuous scroll-controlled take. [Joseph Santamaria’s technical case study](https://tympanus.net/codrops/2026/04/28/more-than-a-portfolio-building-a-scroll-driven-3d-world-with-something-to-say/)
+The WebGL renderer is lazy, keeps one canvas, renders on demand, culls distant rooms, batches repeated geometry and disables shadows on initially narrow viewports. Vite still warns about the size of the lazy Three.js chunk. Evaluate it on representative hardware before treating software-rendered tests as frame-rate evidence.
 
-The staged diff passed `git diff --cached --check`. Git attributes mark PDFs and raster assets as binary, and staged PDF blobs match the verified files. A tracked-path check excluded private evidence, credentials, QA output, temporary files and dependencies.
+Case links fall through to their document anchors in the reading path. A live case locks background scroll and restores scroll and focus on close. Public evidence and PDFs remain the same files. The three approved encodes load only in their active scroll windows. Video requests are deferred until scroll enters an insert.
 
-The lazy scene remains the largest JavaScript download. Physical-device frame rate, field Core Web Vitals and hosted behavior require separate measurement.
+The Flow milestone is satisfied by the three reviewed, integrated finals.

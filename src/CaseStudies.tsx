@@ -45,38 +45,19 @@ function PublishedSamples({ work }: { work: PublishedWork }) {
   );
 }
 
-export function WorkIndex() {
-  return (
-    <div className="container work-index gallery-index">
-      <span className="sr-only">Case studies</span>
-      {projects.map((project, index) => (
-        <a href={`#${project.id}`} key={project.id}>
-          <span className="gallery-thumbnail">
-            <Photo id={project.id} alt="" />
-          </span>
-          <span className="gallery-label">
-            <span className="film-code">0{index + 1} / {project.period}</span>
-            <strong>{project.name}</strong>
-          </span>
-          <ArrowUpRight aria-hidden="true" />
-        </a>
-      ))}
-    </div>
-  );
-}
-
-export default function CaseStudies({ onProof }: { onProof: OpenProof }) {
+export default function CaseStudies({ onProof, only }: { onProof: OpenProof; only?: string }) {
   return (
     <div className="work-dossiers">
       <div className="container">
         {projects.map((project, index) => {
+          if (only && project.id !== only) return null;
           const id = project.id as keyof typeof cases;
           const story = cases[id];
           return (
-            <article key={id} id={id} className={`project ${id}-project`}>
+            <article key={id} id={only ? undefined : id} className={`project ${id}-project`}>
               <header className="case-header">
                 <p className="film-code">Case file 0{index + 1} / {project.period}</p>
-                <h3>{project.name}</h3>
+                <h3 id={only ? "case-dialog-title" : undefined}>{project.name}</h3>
                 <p className="case-category">{project.category}</p>
               </header>
               <div className="case-grid">
