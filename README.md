@@ -32,4 +32,4 @@ Playwright uses the production build and starts the preview server if needed. Se
 
 ## Production and Flow
 
-The pull request workflow runs the build and browser tests. Main-branch runs deploy the tested build to GitHub Pages. The redesigned release requires integrated Flow footage or Raihan’s explicit waiver. See the [production handoff](docs/FLOW-PRODUCTION-HANDOFF.md), [credit ledger](docs/FLOW-CREDIT-LEDGER.md) and [current status](docs/PROJECT-STATUS.md).
+The pull request workflow runs the build and browser tests. Main-branch runs deploy the tested build to GitHub Pages. The redesign ships with three approved Flow clips, loaded on demand along the live camera route. See the [production handoff](docs/FLOW-PRODUCTION-HANDOFF.md), [credit ledger](docs/FLOW-CREDIT-LEDGER.md) and [current status](docs/PROJECT-STATUS.md).

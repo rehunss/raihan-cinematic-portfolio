@@ -32,6 +32,12 @@ html[data-motion="off"] { scroll-behavior: auto; }
 .film-stage { z-index: 0; }
 .film-live { opacity: 0; }
 .film-live[data-ready="true"] { opacity: 1; }
+.cinematic[data-world-ready="true"] .film-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #061011e0 0%, #061011a8 18%, #06101117 58%, transparent 84%);
+}
 
 .world-header {
   display: flex;
@@ -108,7 +114,6 @@ html[data-motion="off"] { scroll-behavior: auto; }
   display: flex;
   align-items: end;
   padding: max(96px, 12svh) var(--world-margin) clamp(42px, 9svh, 110px);
-  background: linear-gradient(0deg, #061011df 0%, #0610119c 17%, #06101115 57%, transparent 82%);
 }
 .cinematic:not([data-world-ready="true"]) .world-shot { scroll-margin-top: 0; min-height: 0; }
 .cinematic:not([data-world-ready="true"]) .shot-frame {
@@ -128,7 +133,6 @@ html[data-motion="off"] { scroll-behavior: auto; }
 #contact { --poster: url("./film/posters/departure.webp"); }
 #about .shot-frame, #work-tiriz .shot-frame { justify-content: flex-end; padding-right: calc(var(--world-margin) + 26px); }
 #contact .shot-frame { justify-content: center; text-align: center; background-color: transparent; }
-#impact .shot-frame { background: linear-gradient(0deg, #081614ed 0%, #081614a1 25%, transparent 70%); }
 #impact .shot-caption, #contact .shot-caption { width: min(750px, 100%); }
 .shot-caption { width: min(490px, 100%); text-shadow: 0 1px 5px #071011, 0 0 26px #071011; }
 #profile .shot-caption { width: min(900px, 100%); }

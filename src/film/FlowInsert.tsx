@@ -23,7 +23,7 @@ export function FlowInsert() {
     if (!world) return;
     const update = () => {
       const progress = Number(world.style.getPropertyValue('--route-progress')) * (shots.length - 1);
-      const slot = slots.find(item => progress >= item.start && progress <= item.end);
+      const slot = slots.find(item => progress > item.start && progress < item.end);
       const url = slot && clips['./flow/' + slot.file + '.webm'];
       setSource(url || undefined);
       if (!slot || !url) return;

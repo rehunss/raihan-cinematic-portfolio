@@ -1,3 +1,3 @@
 # Approved Flow media
 
-Place the approved web encodes here as `arrival.webm`, `transformation.webm`, and `departure.webm`. See `docs/FLOW-PRODUCTION-HANDOFF.md` for inputs, review, provenance and publication requirements.
+The three files in this directory are the reviewed eight-second 720p finals, encoded as silent VP9 WebM. See the production handoff and credit ledger in the repository docs for inputs, prompts, cost and checksums.

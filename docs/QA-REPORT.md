@@ -20,11 +20,11 @@ npm.cmd test -- --global-timeout=420000
 git diff --check
 ```
 
-The Flow footage is an open release checkpoint. Its rendering, network behavior and runtime blending require review after approved clips are present.
+All 22 local release checks passed with the Flow encodes. The three approved Flow encodes were inspected against the relevant live views. The media integration test checks that clips wait until their scroll windows, seek in both directions, hold still at rest, and unload when reduced motion is selected.
 
 ## Measured preview
 
-One local Chrome sample per profile measured initial paint separately from first WebGL frame. The mobile profile emulated 390 × 844, 4× CPU slowdown, 150 ms RTT and 1.6 Mbps down. These observations describe the local software-rendered browser.
+Before adding the Flow clips, one local Chrome sample per profile measured initial paint separately from first WebGL frame. The mobile profile emulated 390 × 844, 4× CPU slowdown, 150 ms RTT and 1.6 Mbps down. These observations describe the local software-rendered browser.
 
 | Profile | Largest contentful paint | Layout shift | First live frame observed |
 | --- | ---: | ---: | ---: |

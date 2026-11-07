@@ -29,7 +29,14 @@ Reference frames are local portfolio captures. The optimized equivalents are in 
 Check stable geometry, believable directional motion, palette continuity, and unwanted marks or objects. Compare each shot against the relevant live stop. Export the approved original into a private local staging folder. Transcode without audio at 720p with a tight keyframe interval. Use `arrival.webm`, `transformation.webm`, and `departure.webm` in `src/film/flow/`. Keep original renders and app status independent of generated media.
 
 ```powershell
-ffmpeg -i input.mp4 -vf scale=1280:720 -an -c:v libvpx-vp9 -crf 32 -b:v 0 -g 12 -pix_fmt yuv420p output.webm
+ffmpeg -i input.mp4 -vf scale=1280:720 -an -sn -dn -map_metadata -1 -c:v libvpx-vp9 -crf 34 -b:v 0 -g 12 -deadline good -cpu-used 3 -row-mt 1 -threads 4 -pix_fmt yuv420p output.webm
 ```
 
 Enable a clip after verifying the production asset. Check scroll holds and reverse playback, browser network, load cost, contrast, reduced motion, and mobile readability. Record the actual inputs, cost and output hash. Production publication remains gated on integrated footage or Raihan’s explicit waiver.
+
+
+## Final production review
+
+Arrival keeps the viaduct and seam stable during the forward dolly. Transformation reveals copper lighting across an intervening architectural passage and settles on the supplied courtyard. Departure follows the rooftop into pale fog. The final originals were inspected at 0.1, 2.5, 4.5 and 7.7 seconds. The review sheet is `qa/v5/flow-final-contact-sheet.jpg`.
+
+The shipped clips appear as short masked inserts inside their corresponding scroll windows. The original geometry, camera and typography remain visible underneath. Media load only after entering a window and follow scroll in both directions. The still-image reading path is available with reduced motion or unavailable WebGL. See the [credit ledger](FLOW-CREDIT-LEDGER.md) for the exact charge and the shipped checksums.

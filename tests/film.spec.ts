@@ -139,3 +139,51 @@ test('prerendered chapters, published work and downloads are readable without sc
     await context.close();
   }
 });
+
+async function moveToPhase(page: Page, phase: number) {
+  await page.evaluate(({phase, ids}) => {
+    const start = Math.floor(phase);
+    const fraction = phase - start;
+    const from = document.getElementById(ids[start])!.getBoundingClientRect().top + scrollY;
+    const to = document.getElementById(ids[start + 1])!.getBoundingClientRect().top + scrollY;
+    scrollTo({top:from + (to - from) * fraction, behavior:'instant'});
+  }, { phase, ids: stopIds });
+}
+
+test('the three Flow clips load on demand and scrub in both directions', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', request => { if (request.url().endsWith('.webm')) requests.push(request.url()); });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('./');
+  await expect(page.locator(readyCanvas)).toBeVisible({ timeout: 30_000 });
+  const player = page.locator('.flow-insert video');
+  await expect(player).toHaveCount(0);
+  expect(requests).toEqual([]);
+
+  for (const { name, forward, back } of [
+    { name: 'arrival', forward: .39, back: .21 },
+    { name: 'transformation', forward: 5.22, back: 4.85 },
+    { name: 'departure', forward: 6.9, back: 6.74 },
+  ]) {
+    await moveToPhase(page, forward);
+    await expect(player).toHaveAttribute('src', new RegExp('/' + name + '[-.].*webm$'));
+    const readTime = () => player.evaluate(video => (video as HTMLVideoElement).currentTime);
+    await expect.poll(readTime).toBeGreaterThan(5);
+    await expect.poll(() => player.evaluate(video => (video as HTMLVideoElement).videoWidth)).toBe(1280);
+    expect(await player.evaluate(video => (video as HTMLVideoElement).paused)).toBe(true);
+    const held = await readTime();
+    await page.waitForTimeout(250);
+    expect(await readTime()).toBe(held);
+    await moveToPhase(page, back);
+    await expect.poll(readTime).toBeLessThan(held - 1);
+    await expect.poll(() => page.locator('.flow-insert').evaluate(el => Number(getComputedStyle(el).opacity))).toBeGreaterThan(.1);
+    await page.screenshot({ path: 'qa/v5/flow-integrated-' + name + '.png' });
+  }
+
+  expect(requests.some(url => url.includes('arrival-'))).toBe(true);
+  expect(requests.some(url => url.includes('transformation-'))).toBe(true);
+  expect(requests.some(url => url.includes('departure-'))).toBe(true);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(player).toHaveCount(0);
+  await expect(page.locator(readyCanvas)).toHaveCount(0);
+});
