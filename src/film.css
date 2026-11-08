@@ -46,13 +46,8 @@ html[data-motion="off"] { scroll-behavior: auto; }
   gap: 20px;
   position: fixed;
   z-index: 8;
-  inset: 0 0 auto;
-  min-height: 64px;
-  padding: 10px clamp(18px, 3.4vw, 58px);
-  background: linear-gradient(#0a1517f7 0%, #0a1517e6 78%, #0a1517c9 100%);
-  border-bottom: 1px solid #6b8f854d;
 }
-.world-brand, .world-nav, .world-controls { display: flex; align-items: center; }
+.world-brand { display: flex; align-items: center; }
 .world-brand { min-height: 44px; font-weight: 600; gap: 12px; color: inherit; white-space: nowrap; }
 .world-brand .nav-subtitle {
   font: 500 .64rem/1 var(--film-mono);
@@ -65,11 +60,8 @@ html[data-motion="off"] { scroll-behavior: auto; }
 }
 .brand-mark { width: 13px; height: 13px; border: 1px solid var(--film-blue); transform: rotate(45deg); display: grid; place-items: center; }
 .brand-mark::before { content: ""; width: 4px; height: 4px; background: var(--film-blue); }
-.world-nav { gap: clamp(12px, 1.8vw, 28px); }
-.world-nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--film-ink); padding-block: 9px; font-size: .84rem; }
-.world-nav a:hover, .world-contact-links a:hover, .shot-next:hover, .arrival-scroll:hover { color: var(--film-blue); }
-.world-controls { gap: 7px; }
-.world-controls button, .case-dialog-bar button {
+.world-contact-links a:hover, .shot-next:hover, .arrival-scroll:hover { color: var(--film-blue); }
+.case-dialog-bar button {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -83,7 +75,6 @@ html[data-motion="off"] { scroll-behavior: auto; }
   font-size: .76rem;
   white-space: nowrap;
 }
-.world-controls .world-menu { display: none; min-width: 44px; }
 .world-route {
   position: fixed;
   z-index: 2;
@@ -99,7 +90,6 @@ html[data-motion="off"] { scroll-behavior: auto; }
 }
 .route-line { position: absolute; inset: 4px auto 4px 0; width: 1px; background: #d9f4eb56; }
 .route-line::before { display: block; content: ""; height: calc(var(--route-progress, 0) * 100%); background: #a8e5dc; }
-.cinematic:not([data-world-ready="true"]) .world-route { display: none; }
 [data-shot="profile"] [data-route-stop="profile"], [data-shot="about"] [data-route-stop="about"],
 [data-shot="projects"] [data-route-stop="projects"], [data-shot="work-tiriz"] [data-route-stop="work-tiriz"],
 [data-shot="work-cakradata"] [data-route-stop="work-cakradata"], [data-shot="experience"] [data-route-stop="experience"],
@@ -115,9 +105,7 @@ html[data-motion="off"] { scroll-behavior: auto; }
   align-items: end;
   padding: max(96px, 12svh) var(--world-margin) clamp(42px, 9svh, 110px);
 }
-.cinematic:not([data-world-ready="true"]) .world-shot { scroll-margin-top: 0; min-height: 0; }
 .cinematic:not([data-world-ready="true"]) .shot-frame {
-  position: relative;
   background-image: linear-gradient(0deg, #0a1617f2 0%, #0a1617a3 32%, #0a161723 75%), var(--poster);
   background-size: cover;
   background-position: center;
@@ -211,18 +199,9 @@ html[data-motion="on"] .case-dialog[open] { animation: dossier-in .32s ease-out;
 .case-header { margin-bottom: clamp(28px, 5vw, 56px); }
 .case-header h3 { margin: 12px 0; font-size: clamp(2.6rem, 6vw, 5.8rem); letter-spacing: -.07em; }
 .case-category { color: var(--film-muted); }
-.case-grid { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: clamp(32px, 5vw, 90px); align-items: start; }
 .case-grid .project-story { display: block; margin: 0; }
 .case-grid h4 { font-size: clamp(1.65rem, 3vw, 2.7rem); text-wrap: initial; }
-.star-story { display: grid; gap: 15px; margin-block: 22px; }
-.star-story div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 10px; border-top: 1px solid var(--film-line); padding-top: 12px; }
-.star-story dt { color: var(--film-blue); font: 500 .77rem/1.5 var(--film-mono); padding-top: 4px; }
-.star-story dd { margin: 0; color: var(--film-muted); font-size: 1rem; }
 .case-grid p.case-takeaway { font-size: 1rem; margin: 20px 0 12px; }
-.case-media { padding: 10px; background: #131d2b; border: 1px solid var(--film-line); }
-.case-media .media-proof { overflow: hidden; border-radius: 0; }
-.case-media img { width: 100%; max-height: 440px; object-fit: contain; }
-.case-media figcaption { padding: 10px 4px 0; font-size: .79rem; color: var(--film-muted); }
 .film-work .chart-panel { border: 1px solid var(--film-line); --panel-radius: 12px; }
 .published-samples { margin-top: 36px; padding: clamp(18px, 3vw, 34px); background: var(--surface-alt); border: 1px solid var(--film-line); }
 .published-samples h4 { font-size: 1.6rem; margin-bottom: 8px; }
@@ -251,29 +230,10 @@ html[data-motion="on"] .case-dialog[open] { animation: dossier-in .32s ease-out;
 .impact-record .text-link { margin-top: 10px; font-size: .86rem; }
 
 
-@media (max-width: 940px) {
-  .world-brand .nav-subtitle { display: none; }
-}
 @media (max-width: 720px) {
-  .world-header { min-height: 59px; }
-  .world-controls .world-menu { display: inline-flex; }
-  [data-interactive="true"] .world-nav { display: none; }
-  [data-interactive="true"] .world-nav.open {
-    display: grid;
-    position: absolute;
-    inset: 100% 0 auto;
-    gap: 0;
-    padding: 8px 24px 16px;
-    background: #101d1f;
-    border-bottom: 1px solid var(--film-line);
-  }
-  [data-interactive="true"] .world-nav a { min-height: 44px; }
-  [data-interactive="false"] .world-header { position: absolute; flex-wrap: wrap; gap: 0 12px; }
-  [data-interactive="false"] .world-nav { gap: 0 12px; flex-wrap: wrap; }
   .world-route { display: none; }
   #about .shot-frame, #work-tiriz .shot-frame { justify-content: flex-start; padding-right: var(--world-margin); }
-  .case-grid, .impact-grid, .experience-roles { grid-template-columns: 1fr; }
-  .star-story div { grid-template-columns: 84px minmax(0, 1fr); }
+  .impact-grid, .experience-roles { grid-template-columns: 1fr; }
 }
 @media (max-width: 380px) {
   .cinematic { --world-margin: 18px; }
@@ -287,6 +247,5 @@ html[data-motion="on"] .case-dialog[open] { animation: dossier-in .32s ease-out;
   inset: 0;
   pointer-events: none;
   mask-image: radial-gradient(ellipse at 55% 32%, #000 15%, #000a 44%, transparent 75%);
-  opacity: 0;
 }
 .flow-insert video { width: 100%; height: 100%; object-fit: cover; }

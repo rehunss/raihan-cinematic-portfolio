@@ -3,6 +3,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App';
 import './styles.css';
 import './film.css';
+import './journey.css';
 
 const container = document.getElementById('root')!;
 const PrintPortfolio = lazy(() => import('./PrintPortfolio'));

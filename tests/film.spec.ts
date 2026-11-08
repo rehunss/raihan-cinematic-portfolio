@@ -48,8 +48,9 @@ test('the persistent canvas travels, holds and reverses across eight shots', asy
   await moveTo(page, 0);
   await expect.poll(() => pose(page)).toEqual(start);
 
-  await page.setViewportSize({ width: 390, height: 844 });
   await stopAt(page, 'work-tiriz');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect.poll(() => page.locator('#work-tiriz').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThan(1);
   await expect(canvas).toHaveAttribute('data-instance', 'original');
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   await page.screenshot({ path: 'qa/film-live-390.png' });
@@ -58,10 +59,12 @@ test('the persistent canvas travels, holds and reverses across eight shots', asy
 
 test('the case and nested evidence return to the same scroll, camera and trigger', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await page.goto('./?debug-world=1#work-tiriz');
+  await page.goto('./?debug-world=1');
+  await page.getByRole('link', {name:'Explore selected work'}).click();
+  await page.locator('#projects .shot-next').click();
   await expect(page.locator(readyCanvas)).toBeVisible({ timeout: 30_000 });
   await expect(page.locator('.cinematic')).toHaveAttribute('data-shot', 'work-tiriz');
-  expect(Math.abs(await page.locator('#work-tiriz').evaluate(el => el.getBoundingClientRect().top))).toBeLessThan(1);
+  await expect.poll(() => page.locator('#work-tiriz').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThan(1);
   const trigger = page.locator('#work-tiriz a[href="#tiriz"]');
   await trigger.focus();
   const beforeScroll = await page.evaluate(() => scrollY);
@@ -69,17 +72,21 @@ test('the case and nested evidence return to the same scroll, camera and trigger
   await page.keyboard.press('Enter');
   const dossier = page.getByRole('dialog', { name: 'TIRIZ' });
   await expect(dossier).toBeVisible();
-  const proof = dossier.getByRole('button', { name: 'View project proof' });
+  await expect(dossier.locator('.project-gallery img')).toHaveCount(5);
+  await expect.poll(() => pose(page)).not.toEqual(beforePose);
+  const proof = dossier.getByRole('link', { name: 'Enlarge Payday Deals' });
   await proof.click();
   await expect(page.getByRole('dialog', { name: 'View proof' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(proof).toBeFocused();
-  await page.screenshot({ path: 'qa/v5-case-dialog.png' });
-  await page.keyboard.press('Escape');
+  await page.screenshot({ path: 'qa/v6/project-tiriz.png' });
+  await page.goBack();
   await expect(dossier).toHaveCount(0);
   await expect(trigger).toBeFocused();
   expect(await page.evaluate(() => scrollY)).toBe(beforeScroll);
   await expect.poll(() => pose(page)).toEqual(beforePose);
+  await page.mouse.wheel(0, 410);
+  await expect.poll(() => pose(page)).not.toEqual(beforePose);
 });
 
 test('WebGL absence and system reduced motion preserve navigation and evidence', async ({ page }) => {
@@ -100,8 +107,9 @@ test('WebGL absence and system reduced motion preserve navigation and evidence',
   await expect(page).toHaveURL(/#projects$/);
   await page.locator('#work-tiriz a[href="#tiriz"]').click();
   await expect(page).toHaveURL(/#tiriz$/);
-  await page.locator('#tiriz').getByRole('button', { name: 'View project proof' }).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.getByRole('dialog', { name: 'TIRIZ' })).toBeVisible();
+  await page.getByRole('link', { name: 'Enlarge Happy Hour' }).press('Enter');
+  await expect(page.getByRole('dialog', {name:'View proof'})).toBeVisible();
   await page.keyboard.press('Escape');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(page.getByRole('button', { name: 'Motion off' })).toHaveAttribute('aria-disabled', 'true');
@@ -121,6 +129,9 @@ test('context loss restores the architectural posters and reading index', async 
   expect(extension).toBe(true);
   await expect(canvas).toHaveCount(0);
   await expect(page.locator('#profile .shot-frame')).toHaveCSS('background-image', /arrival.*webp/);
+  await expect(page.getByRole('region', { name: 'Portfolio archive' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Explore' }).click();
+  await page.getByRole('link', { name: /Open reading index/ }).click();
   await expect(page.getByRole('region', { name: 'Portfolio archive' })).toBeVisible();
 });
 
@@ -156,8 +167,7 @@ test('the three Flow clips load on demand and scrub in both directions', async (
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('./');
   await expect(page.locator(readyCanvas)).toBeVisible({ timeout: 30_000 });
-  const player = page.locator('.flow-insert video');
-  await expect(player).toHaveCount(0);
+  await expect(page.locator('.flow-insert video[src]')).toHaveCount(0);
   expect(requests).toEqual([]);
 
   for (const { name, forward, back } of [
@@ -165,6 +175,7 @@ test('the three Flow clips load on demand and scrub in both directions', async (
     { name: 'transformation', forward: 5.22, back: 4.85 },
     { name: 'departure', forward: 6.9, back: 6.74 },
   ]) {
+    const player = page.locator('.flow-insert video[data-clip="' + name + '"]');
     await moveToPhase(page, forward);
     await expect(player).toHaveAttribute('src', new RegExp('/' + name + '[-.].*webm$'));
     const readTime = () => player.evaluate(video => (video as HTMLVideoElement).currentTime);
@@ -176,7 +187,11 @@ test('the three Flow clips load on demand and scrub in both directions', async (
     expect(await readTime()).toBe(held);
     await moveToPhase(page, back);
     await expect.poll(readTime).toBeLessThan(held - 1);
-    await expect.poll(() => page.locator('.flow-insert').evaluate(el => Number(getComputedStyle(el).opacity))).toBeGreaterThan(.1);
+    await expect.poll(() => player.evaluate(el => Number(getComputedStyle(el).opacity))).toBeGreaterThan(.1);
+    await player.evaluate(el => { el.dataset.retained = 'true'; });
+    await moveToPhase(page, 3.5);
+    await moveToPhase(page, back);
+    await expect(player).toHaveAttribute('data-retained','true');
     await page.screenshot({ path: 'qa/v5/flow-integrated-' + name + '.png' });
   }
 
@@ -184,6 +199,72 @@ test('the three Flow clips load on demand and scrub in both directions', async (
   expect(requests.some(url => url.includes('transformation-'))).toBe(true);
   expect(requests.some(url => url.includes('departure-'))).toBe(true);
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(player).toHaveCount(0);
+  await expect(page.locator('.flow-insert video')).toHaveCount(0);
   await expect(page.locator(readyCanvas)).toHaveCount(0);
+});
+test('leadership, capabilities and results reveal content at their scene', async ({page}) => {
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.goto('./?debug-world=1#experience');
+  const canvas = page.locator(readyCanvas);
+  await expect(canvas).toBeVisible({timeout:30_000});
+  await canvas.evaluate(el => { el.dataset.journey = 'same'; });
+  const y = await page.evaluate(() => scrollY);
+  const before = await pose(page);
+  const trigger = page.locator('#experience a[href="#hima"]');
+  await trigger.click();
+  const experience = page.getByRole('dialog',{name:/HIMA Mankom/});
+  await expect(experience).toContainText('81 registrations out of 92 new members');
+  await expect(experience.getByText('03 / What I did')).toBeVisible();
+  await expect(experience.locator('.experience-photo img')).toBeVisible();
+  await expect(experience).toHaveAttribute('data-phase','reading');
+  await page.screenshot({path:'qa/v6/leadership-detail.png',animations:'disabled'});
+  await page.keyboard.press('Escape');
+  await expect(experience).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  expect(await page.evaluate(() => scrollY)).toBe(y);
+  await expect.poll(() => pose(page)).toEqual(before);
+  await expect(canvas).toHaveAttribute('data-journey','same');
+
+  for (const [id, label] of [['about','Capabilities in practice'],['impact','Results and sources']]) {
+    await stopAt(page,id);
+    const origin = await page.evaluate(() => scrollY);
+    await page.getByRole('link',{name:label}).click();
+    await expect(page.getByRole('dialog',{name:label})).toBeVisible();
+    await expect(page.locator('.reading-archive')).toHaveCount(0);
+    await page.getByRole('button',{name:'Close panel'}).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    expect(await page.evaluate(() => scrollY)).toBe(origin);
+  }
+});
+
+test('a touch visitor can open a gallery while WebGL is loading and return in place', async ({browser,baseURL}) => {
+  const context = await browser.newContext({baseURL,viewport:{width:390,height:844},hasTouch:true,isMobile:true,reducedMotion:'no-preference'});
+  try {
+    const page = await context.newPage();
+    let release!: () => void;
+    const hold = new Promise<void>(resolve => { release = resolve; });
+    await page.route(/\/Scene-[^/]+\.js$/, async route => { await hold; await route.continue(); });
+    await page.goto('./#projects');
+    await expect(page.locator('.cinematic')).toHaveAttribute('data-interactive','true');
+    const stops = () => page.locator('[data-world-track]').evaluate(el => [...el.children].map(shot => (shot as HTMLElement).offsetTop));
+    const initial = await stops();
+    const y = await page.evaluate(() => scrollY);
+    await page.locator('#projects a[href="#divia"]').tap();
+    const gallery = page.getByRole('dialog',{name:'Divia Unpad TV'});
+    await expect(gallery).toBeVisible();
+    await expect(gallery.locator('.project-gallery img')).toHaveCount(4);
+    await expect(page.locator('canvas')).toHaveCount(0);
+    release();
+    await expect(page.locator(readyCanvas)).toBeVisible({timeout:30_000});
+    expect(await stops()).toEqual(initial);
+    const sample = gallery.getByRole('link',{name:/Enlarge Cara Mudah/});
+    await sample.tap();
+    await expect(page.getByRole('dialog',{name:'View proof'}).locator('img')).toBeVisible();
+    await page.getByRole('button',{name:'Close proof'}).tap();
+    await page.screenshot({path:'qa/v6/mobile-project.png'});
+    await page.getByRole('button',{name:'Close case study'}).tap();
+    await expect(gallery).toHaveCount(0);
+    expect(await page.evaluate(() => scrollY)).toBe(y);
+    await expect(page.locator('.cinematic')).toHaveAttribute('data-shot','projects');
+  } finally { await context.close(); }
 });

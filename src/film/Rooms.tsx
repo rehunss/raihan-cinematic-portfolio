@@ -1,7 +1,8 @@
-import { Suspense, useEffect, useRef, type RefObject, type ReactNode } from 'react';
+import { Suspense, useEffect, useRef, useState, type RefObject, type ReactNode } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { Group, SRGBColorSpace, TextureLoader } from 'three';
 import { asset, media, metric } from '../content';
+import { leadershipExhibits } from './shots';
 import { block, Glass, Masonry, Radiance, Trace } from './Architecture';
 
 const cool = '#3b555c';
@@ -9,6 +10,7 @@ const black = '#283740';
 const cyan = '#608485';
 const copper = '#795244';
 const bronze = '#9b6f4d';
+const photoMounts = leadershipExhibits.map(({point:[x,y,z]}) => block(x,y,z-.18,5,3.5,.28,'#6e503b'));
 
 function Zone({ depth, children }: { depth: number; children: ReactNode }) {
   const ref = useRef<Group>(null);
@@ -171,7 +173,9 @@ const exitTraces = Array.from({length:16},(_,i)=>block(-2.5,-.32,-193-i*2.8,.055
 
 export function FurtherRooms({progress}: {progress:RefObject<number>}) {
   const roof = useRef<Group>(null);
+  const [photosReady, setPhotosReady] = useState(false);
   useFrame(() => {
+    if (!photosReady && progress.current > 3.8 && progress.current < 6.1) setPhotosReady(true);
     if (roof.current) {
       const blend = Math.min(1,Math.max(0,progress.current-4.3));
       roof.current.rotation.y = -.22+blend*.66;
@@ -181,6 +185,10 @@ export function FurtherRooms({progress}: {progress:RefObject<number>}) {
   return <>
     <Zone depth={-148}>
       <Masonry parts={court} cut />
+      <Masonry parts={photoMounts} />
+      {photosReady && leadershipExhibits.map(exhibit => (
+        <Suspense key={exhibit.id} fallback={null}><EvidenceScreen id={exhibit.id} at={exhibit.point} height={2.7} /></Suspense>
+      ))}
       <group ref={roof} position={[-2,16,-150]}>
         <Masonry parts={canopy} metal />
         <Trace parts={canopySeams} color="#f0be91" />

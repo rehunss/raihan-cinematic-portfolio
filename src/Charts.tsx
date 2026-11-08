@@ -5,7 +5,7 @@ export function useUrlChoice(key:string,values:string[],fallback:string){
   const read=()=>{const v=new URLSearchParams(location.search).get(key);return v&&values.includes(v)?v:fallback;};
   const [value,set]=useState(fallback);
   useEffect(()=>{const restore=()=>set(read());restore();addEventListener('popstate',restore);return()=>removeEventListener('popstate',restore);},[key]);
-  const change=(v:string)=>{const url=new URL(location.href);url.searchParams.set(key,v);history.pushState({},'',url);set(v);};
+  const change=(v:string)=>{const url=new URL(location.href);url.searchParams.set(key,v);history[history.state?.world?.panel ? 'replaceState' : 'pushState'](history.state,'',url);set(v);};
   return [value,change] as const;
 }
 export function Tabs({id,values,value,onChange}:{id:string;values:{id:string;label:string}[];value:string;onChange:(v:string)=>void}){

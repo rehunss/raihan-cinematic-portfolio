@@ -1,23 +1,15 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
-import { ArrowDown, ArrowUpRight, List, Pause, Play, X } from '@phosphor-icons/react';
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
+import { ArrowDown, ArrowUpRight, Compass } from '@phosphor-icons/react';
 import CaseStudies from './CaseStudies';
-import { external, ProofDialog } from './Evidence';
+import { external, Photo, ProofDialog } from './Evidence';
 import { FilmStage } from './FilmStage';
-import ReadingArchive, { impactRecords } from './ReadingArchive';
-import { asset, content, experiences, metric, projects } from './content';
+import { JourneyPanel } from './JourneyPanels';
+import ReadingArchive, { Experience, Impact, Skills, impactRecords } from './ReadingArchive';
+import { asset, content, experiences, media, metric, projects } from './content';
+import { createJourney } from './film/journey';
 import { shots, workStops } from './film/shots';
+import { useJourneyNavigation } from './useJourneyNavigation';
 
-const chapters = [
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Work' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'impact', label: 'Impact' },
-  { id: 'contact', label: 'Contact' },
-];
-const archiveIds = new Set([
-  'reading-index', 'leadership', 'skills', 'results',
-  ...projects.map(project => project.id), ...experiences.map(item => item.id),
-]);
 const exhibitCopy = [
   'Platform strategy, LinkedIn activation and media partnerships for campus television.',
   'Editorial content, creator collaboration and a Choose Your Mood activation.',
@@ -38,35 +30,21 @@ function Chapter({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
-function CaseDialog({ id, close, onProof }: { id: string; close: () => void; onProof: (ids: string[]) => void }) {
-  const ref = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const dialog = ref.current!;
-    const trigger = document.activeElement as HTMLElement | null;
-    const scroll = window.scrollY;
-    const overflow = document.body.style.overflow;
-    dialog.showModal();
-    document.body.style.overflow = 'hidden';
-    dialog.querySelector('button')?.focus({ preventScroll: true });
-    return () => {
-      dialog.close();
-      document.body.style.overflow = overflow;
-      window.scrollTo({ top: scroll, behavior: 'instant' });
-      trigger?.focus({ preventScroll: true });
-    };
-  }, []);
-
-  return (
-    <dialog className="case-dialog" ref={ref} aria-labelledby="case-dialog-title"
-      onCancel={event => { event.preventDefault(); close(); }}
-      onClick={event => { if (event.target === ref.current) close(); }}>
-      <div className="case-dialog-bar">
-        <span className="film-code">The Architecture of Ideas / Case file</span>
-        <button type="button" onClick={close} aria-label="Close case study"><X size={18} aria-hidden="true" /><span>Close</span></button>
-      </div>
-      <CaseStudies only={id} onProof={onProof} />
-    </dialog>
-  );
+function RouteMap({go}: {go:(event:MouseEvent<HTMLAnchorElement>, id:string, direct?:boolean)=>void}) {
+  const [direct, setDirect] = useState(false);
+  return <div className="route-map container">
+    <p className="film-code">08 locations / One continuous journey</p>
+    <h2 id="journey-panel-title">Choose a scene.</h2>
+    <nav aria-label="Main navigation">
+      {shots.map(shot => <a key={shot.id} href={'#' + shot.id} onClick={event => go(event, shot.id, direct)}>
+        <span>{shot.index}</span><strong>{shot.name}</strong><ArrowUpRight aria-hidden="true" />
+      </a>)}
+    </nav>
+    <div className="map-options">
+      <label><input type="checkbox" checked={direct} onChange={event => setDirect(event.target.checked)} /> Go directly to scenes</label>
+      <a href="?reading=1#reading-index">Open reading index <ArrowUpRight aria-hidden="true" /></a>
+    </div>
+  </div>;
 }
 
 export default function App() {
@@ -74,128 +52,60 @@ export default function App() {
   const [reduce, setReduce] = useState(false);
   const [preferred, setPreferred] = useState(true);
   const [ready, setReady] = useState(false);
-  const [menu, setMenu] = useState(false);
-  const [archive, setArchive] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [proof, setProof] = useState<string[] | null>(null);
-  const menuButton = useRef<HTMLButtonElement>(null);
+  const [journey] = useState(createJourney);
   const track = useRef<HTMLDivElement>(null);
-  const routePosition = useRef<{ id: string; fraction: number } | null>(null);
-  const rememberPosition = useCallback(() => {
-    const chapter = [...(track.current?.children ?? [])].reverse()
-      .find(element => element.getBoundingClientRect().top < 1);
-    const bounds = chapter?.getBoundingClientRect();
-    routePosition.current = chapter && bounds && bounds.bottom > 0
-      ? { id: chapter.id, fraction: Math.max(0, -bounds.top / bounds.height) }
-      : null;
-  }, []);
-  const onReadyChange = useCallback((next: boolean) => {
-    rememberPosition();
-    setReady(next);
-  }, [rememberPosition]);
   const motion = hydrated && preferred && !reduce;
-  const active = motion && ready;
-
-  useLayoutEffect(() => {
-    const position = routePosition.current;
-    routePosition.current = null;
-    if (!position) return;
-    const chapter = document.getElementById(position.id);
-    if (!chapter) return;
-    const bounds = chapter.getBoundingClientRect();
-    window.scrollTo({ top: scrollY + bounds.top + bounds.height * position.fraction, behavior: 'instant' });
-  }, [active]);
+  const nav = useJourneyNavigation(journey, track, motion && ready, motion);
+  const panel = nav.presented;
 
   useEffect(() => {
     const query = matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => { rememberPosition(); setReduce(query.matches); };
+    const sync = () => setReduce(query.matches);
     sync();
     try { setPreferred(localStorage.getItem('raihan-motion') !== 'off'); }
-    catch { /* The control remains available without storage. */ }
+    catch { /* Preferences remain available for this session. */ }
     setHydrated(true);
     query.addEventListener('change', sync);
     return () => query.removeEventListener('change', sync);
-  }, [rememberPosition]);
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.motion = motion ? 'on' : 'off';
     return () => { delete document.documentElement.dataset.motion; };
   }, [motion]);
 
-  useEffect(() => {
-    let frame = 0;
-    const follow = () => {
-      let id: string;
-      try { id = decodeURIComponent(location.hash.slice(1)); }
-      catch { return; }
-      setArchive(archiveIds.has(id));
-      if (id) {
-        cancelAnimationFrame(frame);
-        frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'instant' }));
-      }
-    };
-    follow();
-    addEventListener('hashchange', follow);
-    return () => { removeEventListener('hashchange', follow); cancelAnimationFrame(frame); };
-  }, []);
-
-  useEffect(() => {
-    if (!menu) return;
-    const escape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setMenu(false);
-        menuButton.current?.focus();
-      }
-    };
-    addEventListener('keydown', escape);
-    return () => removeEventListener('keydown', escape);
-  }, [menu]);
-
   function toggleMotion() {
     if (reduce) return;
-    rememberPosition();
     const next = !preferred;
     setPreferred(next);
     try { localStorage.setItem('raihan-motion', next ? 'on' : 'off'); }
-    catch { /* Keep the in-session preference. */ }
+    catch { /* Preferences remain available for this session. */ }
   }
 
-  function openCase(event: MouseEvent<HTMLAnchorElement>, id: string) {
-    if (!active || archive || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    event.currentTarget.focus({ preventScroll: true });
-    setSelected(id);
-  }
-
+  const revealCase = (event: MouseEvent<HTMLAnchorElement>, id: string) => nav.link(event, {type:'case', id});
   const { cv, portfolio, campaignReport, linkedin, email } = content.profile;
 
   return (
-    <div className="cinematic" data-interactive={hydrated} data-world-ready={active}>
-      <FilmStage enabled={motion} onReadyChange={onReadyChange} />
+    <div className="cinematic" data-reading={nav.archive} data-interactive={hydrated} data-world-ready={motion && ready}>
+      <FilmStage enabled={motion && !nav.archive} onReadyChange={setReady} journey={journey} />
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="world-header">
-        <a className="world-brand" href="#profile" aria-label="The Architecture of Ideas, opening">
-          <span className="brand-mark" aria-hidden="true" />
-          <span>Raihan<span className="nav-subtitle">The Architecture of Ideas</span></span>
+        <a className="world-brand" href={nav.archive ? "./#profile" : "#profile"} aria-label="The Architecture of Ideas, opening" onClick={event => { if (!nav.archive) nav.go(event, 'profile'); }}>
+          <span className="brand-mark" aria-hidden="true">RR</span>
+          <span className="nav-subtitle">Raihan Ramadhan<br /><span>Field notes / 2026</span></span>
         </a>
-        <nav id="navigation" className={menu ? 'world-nav open' : 'world-nav'} aria-label="Main navigation">
-          {chapters.map(chapter => <a key={chapter.id} href={'#' + chapter.id} onClick={() => setMenu(false)}>{chapter.label}</a>)}
-          <a href="#reading-index" onClick={() => setMenu(false)}>Index</a>
-        </nav>
-        {hydrated && <div className="world-controls">
-          <button className="motion-control" aria-pressed={motion} aria-disabled={reduce || undefined} onClick={toggleMotion}>
-            {motion ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />} Motion {motion ? 'on' : 'off'}
-          </button>
-          <button ref={menuButton} className="world-menu" aria-label={menu ? 'Close menu' : 'Open menu'} aria-expanded={menu} aria-controls="navigation" onClick={() => setMenu(!menu)}>
-            {menu ? <X size={21} aria-hidden="true" /> : <List size={21} aria-hidden="true" />}
-          </button>
-        </div>}
+        {nav.archive ? <a className="world-menu" href="./#profile">Return to journey</a> : hydrated ? <button type="button" className="world-menu" aria-haspopup="dialog" aria-expanded={panel?.type === 'map'}
+          onClick={event => nav.reveal({type:'map'}, event.currentTarget)}>
+          <Compass size={21} aria-hidden="true" /> Explore
+        </button> : <a className="world-menu" href="#reading-index">Reading index</a>}
       </header>
-
       <aside className="world-route" aria-hidden="true">
         <span className="route-line" />
-        {shots.map(shot => <span key={shot.id} data-route-stop={shot.id}>{shot.index}</span>)}
+        {shots.map(shot => <span key={shot.id} data-route-stop={shot.id}><span>{shot.index}</span><span>{shot.name}</span></span>)}
       </aside>
+      {hydrated && !nav.archive && <button type="button" className="motion-control" aria-pressed={motion} aria-disabled={reduce || undefined} onClick={toggleMotion}>
+        <span aria-hidden="true" /> Motion {motion ? 'on' : 'off'}
+      </button>}
       <main id="main" tabIndex={-1}>
         <div ref={track} data-world-track>
           <Chapter id="profile">
@@ -203,15 +113,15 @@ export default function App() {
             <h1 id="profile-title">Muhammad Raihan <br />Ramadhan</h1>
             <p className="arrival-credit">Marketing communication · Content · Partnerships</p>
             <div className="shot-actions">
-              <a className="world-button" href="#projects">Explore selected work <ArrowUpRight aria-hidden="true" /></a>
-              <a className="arrival-scroll" href="#about"><ArrowDown aria-hidden="true" /> Begin the journey</a>
+              <a className="world-button" href="#projects" onClick={event => nav.go(event, "projects")}>Explore selected work <ArrowUpRight aria-hidden="true" /></a>
+              <a className="arrival-scroll" href="#about" onClick={event => nav.go(event, "about")}><ArrowDown aria-hidden="true" /> Begin the journey</a>
             </div>
           </Chapter>
           <Chapter id="about">
             <h2 id="about-title">Start with<br />the audience.</h2>
             <p>{content.profile.intro}</p>
             <p>{content.profile.education}.</p>
-            <a className="world-button" href="#skills">Capabilities in practice <ArrowUpRight aria-hidden="true" /></a>
+            <a className="world-button" href="#skills" onClick={event => nav.link(event, {type:"skills"})}>Capabilities in practice <ArrowUpRight aria-hidden="true" /></a>
           </Chapter>
           {projects.map((project, index) => (
             <Chapter key={project.id} id={workStops[index]}>
@@ -219,15 +129,24 @@ export default function App() {
               <p className="film-code exhibit-period">{project.category} · {project.period}</p>
               <p>{exhibitCopy[index]}</p>
               <div className="shot-actions">
-                <a className="world-button" href={'#' + project.id} onClick={event => openCase(event, project.id)}>Open case study <ArrowUpRight aria-hidden="true" /></a>
-                <a className="shot-next" href={'#' + (workStops[index + 1] ?? 'experience')}>{index < 2 ? 'Next exhibit' : 'Continue'} <ArrowDown aria-hidden="true" /></a>
+                <a className="world-button" href={'#' + project.id} onClick={event => nav.link(event, {type:"case", id:project.id})}>Open case study <ArrowUpRight aria-hidden="true" /></a>
+                <a className="shot-next" href={'#' + (workStops[index + 1] ?? 'experience')} onClick={event => nav.go(event, workStops[index + 1] ?? "experience")}>{index < 2 ? 'Next exhibit' : 'Continue'} <ArrowDown aria-hidden="true" /></a>
               </div>
             </Chapter>
           ))}
           <Chapter id="experience">
             <h2 id="experience-title">The people<br />behind the work.</h2>
             <p>Student leadership in sponsorship, event delivery and team development.</p>
-            <a className="world-button" href="#leadership">Explore leadership <ArrowUpRight aria-hidden="true" /></a>
+            <div className="leadership-strip" aria-label="Leadership experiences">
+              {experiences.map(item => (
+                <a key={item.id} href={'#' + item.id} onClick={event => nav.link(event, {type:'experience', id:item.id})}>
+                  <img src={asset(media(item.id).variants[0].src)} width="64" height="48" alt="" loading="lazy" />
+                  <span>{item.name}</span>
+                  <ArrowUpRight aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+            <a className="shot-next" href="#leadership" onClick={event => nav.link(event, {type:'leadership'})}>All leadership experiences <ArrowUpRight aria-hidden="true" /></a>
           </Chapter>
           <Chapter id="impact">
             <h2 id="impact-title">What the work delivered.</h2>
@@ -238,7 +157,7 @@ export default function App() {
                 return <div key={item.id}><dt>{item.label}</dt><dd>{item.display}</dd></div>;
               })}
             </dl>
-            <a className="world-button" href="#results">Results and sources <ArrowUpRight aria-hidden="true" /></a>
+            <a className="world-button" href="#results" onClick={event => nav.link(event, {type:"results"})}>Results and sources <ArrowUpRight aria-hidden="true" /></a>
           </Chapter>
           <Chapter id="contact">
             <h2 id="contact-title">Let’s make ideas happen.</h2>
@@ -252,11 +171,28 @@ export default function App() {
             </div>
           </Chapter>
         </div>
-        {!selected && <ReadingArchive hidden={active && !archive} onProof={setProof} />}
+        {(!hydrated || nav.archive) && <ReadingArchive hidden={false} onProof={nav.onProof} />}
       </main>
-      <footer className="film-footer"><div className="container site-footer"><span>© 2026 Muhammad Raihan Ramadhan</span><a href="#profile">Back to top ↑</a></div></footer>
-      {selected && <CaseDialog id={selected} close={() => setSelected(null)} onProof={setProof} />}
-      {proof && <ProofDialog key={proof.join(',')} ids={proof} close={() => setProof(null)} />}
+      <footer className="film-footer"><div className="container site-footer"><span>© 2026 Muhammad Raihan Ramadhan</span><a href={nav.archive ? "./#profile" : "#profile"} onClick={event => { if (!nav.archive) nav.go(event, 'profile'); }}>Back to top ↑</a></div></footer>
+      {panel && <JourneyPanel panel={panel} phase={nav.phase} close={nav.close}>
+        {panel.type === 'map' && <RouteMap go={nav.go} />}
+        {panel.type === 'case' && <CaseStudies only={panel.id} onProof={nav.onProof} />}
+        {panel.type === 'experience' && <Experience only={panel.id} onProof={nav.onProof} />}
+        {panel.type === 'leadership' && <div className="container contextual-content">
+          <h2 id="journey-panel-title">Leadership and delivery</h2>
+          <div className="leadership-directory">{experiences.map(item => (
+            <a key={item.id} href={'#' + item.id} onClick={event => nav.link(event, {type:'experience', id:item.id})}>
+              <Photo id={item.id} alt="" /><span>{item.name}</span><ArrowUpRight aria-hidden="true" />
+            </a>
+          ))}</div>
+        </div>}
+        {panel.type === 'skills' && <Skills contextual onProof={nav.onProof} onCase={revealCase} />}
+        {panel.type === 'results' && <div className="contextual-content">
+          <h2 id="journey-panel-title" className="container">Results and sources</h2>
+          <Impact onCase={revealCase} />
+        </div>}
+      </JourneyPanel>}
+      {nav.proof && <ProofDialog key={nav.proof.ids.join(',')} ids={nav.proof.ids} preview={nav.proof.preview} lockScroll={nav.proofLocksScroll} close={nav.close} />}
     </div>
   );
 }

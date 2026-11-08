@@ -695,5 +695,29 @@
     "type": "generated public portfolio",
     "transform": "Ten-page Chromium print export from src/content.json",
     "sha256": "1b7618a18f8f318fe72f2fa7a4dc41582079e0ef745c4b0e22c8b2fab311c235"
+  },
+  {
+    "file": "assets/tiriz-campaign/payday-carousel.webp",
+    "type": "source-evidence-crop",
+    "transform": "Render and crop of approved TIRIZ campaign report p. 12. Linked campaign post published October 22, 2025.",
+    "sha256": "24ac695e1696abf41f6edf817f0a8c1e8eaff9141d084d93603d6f6f3ac47a62"
+  },
+  {
+    "file": "assets/tiriz-campaign/payday.webp",
+    "type": "source-evidence-crop",
+    "transform": "Render and crop of approved TIRIZ campaign report p. 12. Linked campaign post published October 26, 2025.",
+    "sha256": "c94f8f56819787559a347ee65dc3f87f2a709b2dc9ee5bc6160fd367e73b0c63"
+  },
+  {
+    "file": "assets/tiriz-campaign/happy-hour.webp",
+    "type": "source-evidence-crop",
+    "transform": "Render and crop of approved TIRIZ campaign report p. 12. Linked campaign post published October 6, 2025.",
+    "sha256": "1253cabc1e27e61dd4f3fd51fe2d395c654ebfdd0bbae9b98d8308d64dfd2b6d"
+  },
+  {
+    "file": "assets/tiriz-campaign/giveaway.webp",
+    "type": "source-evidence-crop",
+    "transform": "Render and crop of approved TIRIZ campaign report p. 13. Special Mood 10.10 creative. Report attribution.",
+    "sha256": "45a70c6c21f5edd1d6084ef1134dbc7fcc7cd8dcd04bcda023bee1023d37600f"
   }
 ]
