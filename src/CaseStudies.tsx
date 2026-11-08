@@ -1,10 +1,9 @@
 import { ArrowUpRight } from '@phosphor-icons/react';
 import { AgeChart, PlatformChart, TirizChart } from './Charts';
 import DiviaPostResults from './DiviaPostResults';
-import { Photo } from './Evidence';
+import type { OpenProof } from './Evidence';
+import { ProjectGallery } from './ProjectGallery';
 import { asset, content, projects, type PublishedWork } from './content';
-
-type OpenProof = (ids: string[]) => void;
 
 const cases = {
   divia: {
@@ -23,8 +22,6 @@ const cases = {
     result: 'Techno Campus published student-oriented content I researched, scripted and appeared in. Public post snapshots are listed below.',
   },
 };
-
-const sampleProof = { divia: 'divia-linkedin', tiriz: 'tiriz-booth', cakradata: 'cakradata' };
 
 function PublishedSamples({ work }: { work: PublishedWork }) {
   return (
@@ -60,15 +57,15 @@ export default function CaseStudies({ onProof, only }: { onProof: OpenProof; onl
                 <h3 id={only ? "case-dialog-title" : undefined}>{project.name}</h3>
                 <p className="case-category">{project.category}</p>
               </header>
+              <ProjectGallery project={project} onProof={onProof} />
               <div className="case-grid">
                 <div className="project-story">
                   <h4>{project.headline}</h4>
-                  <dl className="star-story">
-                    <div><dt>Situation</dt><dd>{story.situation}</dd></div>
-                    <div><dt>Task</dt><dd>{story.task}</dd></div>
-                    <div><dt>My contribution</dt><dd>{project.contribution}</dd></div>
-                    <div><dt>Result</dt><dd>{story.result}</dd></div>
-                  </dl>
+                  <div className="case-narrative">
+                    <section><h5>01 / The challenge</h5><p>{story.situation}</p><p>{story.task}</p></section>
+                    <section><h5>02 / My role and approach</h5><p>{project.contribution}</p></section>
+                    <section><h5>03 / Results and evidence</h5><p>{story.result}</p></section>
+                  </div>
                   <p className="case-takeaway">{project.takeaway}</p>
                   <div className="actions">
                     <button className="text-link" onClick={() => onProof(project.sourceIds)}>
@@ -81,12 +78,6 @@ export default function CaseStudies({ onProof, only }: { onProof: OpenProof; onl
                     )}
                   </div>
                 </div>
-                <figure className="case-media">
-                  <button className="media-proof" onClick={() => onProof([sampleProof[id]])} aria-label={`View ${project.name} work sample`}>
-                    <Photo id={id} alt={project.sampleAlt} />
-                  </button>
-                  <figcaption>{project.sampleCaption}</figcaption>
-                </figure>
               </div>
               {id === 'divia' && (
                 <>

@@ -1,12 +1,13 @@
+import type { MouseEvent } from 'react';
 import { ArrowUpRight } from '@phosphor-icons/react';
 import CaseStudies from './CaseStudies';
 import { Photo } from './Evidence';
 import { asset, content, experiences, metric, projects, source } from './content';
-export function Experience({ onProof }: { onProof: (ids: string[]) => void }) {
+export function Experience({ onProof, only }: { onProof: (ids: string[]) => void; only?: string }) {
   return (
     <div className="experience-body">
       <div className="container">
-        <div className="experience-roles">
+        {!only && <div className="experience-roles">
           {projects.map(project => (
             <a href={'#' + project.id} key={project.id}>
               <span className="film-code">{project.period}</span>
@@ -16,16 +17,20 @@ export function Experience({ onProof }: { onProof: (ids: string[]) => void }) {
             </a>
           ))}
         </div>
+        }
         <div className="experience-list">
-          {[...experiences].sort((a, b) => Number(b.id === 'ideation') - Number(a.id === 'ideation')).map(item => (
+          {[...experiences].sort((a, b) => Number(b.id === 'ideation') - Number(a.id === 'ideation')).filter(item => !only || item.id === only).map(item => (
             <article id={item.id} className="experience" key={item.id}>
               <div className="experience-copy">
                 <p className="film-code">{item.period} / {item.type}</p>
-                <h3>{item.name}</h3>
+                <h3 id={only ? "journey-panel-title" : undefined}>{item.name}</h3>
                 <p className="role">{item.role}</p>
-                <p>{item.context}</p>
-                <p>{item.contribution}</p>
-                <p>{item.result}</p>
+                {only ? <div className="case-narrative">
+                  <section><h4>01 / The setting</h4><p>{item.context}</p></section>
+                  <section><h4>02 / The responsibility</h4><p>{item.headline}</p></section>
+                  <section><h4>03 / What I did</h4><p>{item.contribution}</p></section>
+                  <section><h4>04 / What came out of it</h4><p>{item.result}</p></section>
+                </div> : <><p>{item.context}</p><p>{item.contribution}</p><p>{item.result}</p></>}
                 <div className="experience-highlights">
                   {item.highlights.map(highlight => (
                     <div className="metric" key={highlight.label}>
@@ -57,7 +62,9 @@ export const impactRecords = [
   { id: 'tiriz-kol-views', name: 'TIRIZ', project: 'tiriz', context: 'Combined views across four creator pieces during the campaign.' },
 ];
 
-export function Impact() {
+type OpenCase = (event: MouseEvent<HTMLAnchorElement>, id: string) => void;
+
+export function Impact({onCase}: {onCase?: OpenCase}) {
   return (
     <div className="container impact-grid">
       {impactRecords.map(record => {
@@ -68,7 +75,7 @@ export function Impact() {
             <h3><span>{item.display}</span>{item.label}</h3>
             <p>{record.context}</p>
             <p className="impact-scope">{item.attribution} · {item.period}</p>
-            <a className="text-link" href={'#' + record.project}>See case and evidence <ArrowUpRight aria-hidden="true" /></a>
+            <a className="text-link" href={'#' + record.project} onClick={event => onCase?.(event, record.project)}>See case and evidence <ArrowUpRight aria-hidden="true" /></a>
           </article>
         );
       })}
@@ -76,14 +83,14 @@ export function Impact() {
   );
 }
 
-function Skills({ onProof }: { onProof: (ids: string[]) => void }) {
+export function Skills({ onProof, onCase, contextual }: { onProof: (ids: string[]) => void; onCase?: OpenCase; contextual?: boolean }) {
   return (
           <div className="skills-section about-skills" id="skills">
             <div className="container">
-              <h3>Capabilities in practice</h3>
+              <h3 id={contextual ? "journey-panel-title" : undefined}>Capabilities in practice</h3>
               <div className="capabilities">
                 {content.capabilities.map((capability, index) => (
-                  <a key={capability.name} className="capability" href={'#' + capability.project}>
+                  <a key={capability.name} className="capability" href={'#' + capability.project} onClick={event => onCase?.(event, capability.project)}>
                     <span className="capability-number" aria-hidden="true">0{index + 1}</span>
                     <div><h4>{capability.name}</h4><p>{capability.example}</p></div>
                     <ArrowUpRight aria-hidden="true" />

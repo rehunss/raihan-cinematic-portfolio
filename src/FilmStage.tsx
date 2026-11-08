@@ -1,3 +1,4 @@
+import type { Journey } from './film/journey';
 import { Component, lazy, Suspense, useCallback, useEffect, useState, type ReactNode } from 'react';
 
 import { FlowInsert } from './film/FlowInsert';
@@ -20,7 +21,7 @@ class SceneBoundary extends Component<{ children: ReactNode; onError: () => void
   }
 }
 
-function LiveStage({ onReadyChange }: { onReadyChange: (ready: boolean) => void }) {
+function LiveStage({ onReadyChange, journey }: { onReadyChange: (ready: boolean) => void; journey: Journey }) {
   const [lost, setLost] = useState(false);
   const [supported] = useState(() => {
     try {
@@ -44,15 +45,15 @@ function LiveStage({ onReadyChange }: { onReadyChange: (ready: boolean) => void 
     <div className="film-live" data-ready={ready}>
       <SceneBoundary onError={fallBack}>
         <Suspense fallback={null}>
-          <Scene onReady={showScene} onContextLost={fallBack} />
+          <Scene journey={journey} onReady={showScene} onContextLost={fallBack} />
         </Suspense>
-        {ready && <FlowInsert />}
+        {ready && <FlowInsert journey={journey} />}
       </SceneBoundary>
     </div>
   );
 }
 
-export function FilmStage({ enabled, onReadyChange }: { enabled: boolean; onReadyChange: (ready: boolean) => void }) {
+export function FilmStage({ enabled, onReadyChange, journey }: { enabled: boolean; onReadyChange: (ready: boolean) => void; journey: Journey }) {
   const [interactive, setInteractive] = useState(false);
   useEffect(() => {
     if (!enabled) {
@@ -66,6 +67,6 @@ export function FilmStage({ enabled, onReadyChange }: { enabled: boolean; onRead
   }, [enabled]);
 
   return <div className="film-stage" aria-hidden="true">
-    {enabled && interactive && <LiveStage onReadyChange={onReadyChange} />}
+    {enabled && interactive && <LiveStage journey={journey} onReadyChange={onReadyChange} />}
   </div>;
 }
