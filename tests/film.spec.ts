@@ -76,7 +76,11 @@ test('the case and nested evidence return to the same scroll, camera and trigger
   await expect.poll(() => pose(page)).not.toEqual(beforePose);
   const proof = dossier.getByRole('link', { name: 'Enlarge Payday Deals' });
   await proof.click();
-  await expect(page.getByRole('dialog', { name: 'View proof' })).toBeVisible();
+  const lightbox = page.getByRole('dialog', { name: 'View proof' });
+  await expect(lightbox).toBeVisible();
+  await expect(lightbox).toHaveCSS('background-color', 'rgb(18, 29, 31)');
+  await expect(lightbox.getByRole('link', { name: 'View published work' }))
+    .toHaveAttribute('href', 'https://www.instagram.com/p/DQRXvkmjz05/');
   await page.keyboard.press('Escape');
   await expect(proof).toBeFocused();
   await page.screenshot({ path: 'qa/v6/project-tiriz.png' });

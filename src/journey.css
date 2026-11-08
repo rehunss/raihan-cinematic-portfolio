@@ -62,6 +62,20 @@ html:has(.cinematic) { scroll-behavior: auto; overflow-anchor: none; }
 [data-shot="impact"] [data-route-stop="impact"] > :last-child,
 [data-shot="contact"] [data-route-stop="contact"] > :last-child { opacity: 1; }
 
+.cinematic .proof-dialog {
+  background: var(--surface);
+  border: 1px solid var(--film-line);
+  border-radius: 2px;
+}
+.cinematic .proof-dialog .dialog-top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-block: 10px;
+  background: var(--surface);
+}
+.cinematic .proof-dialog .close-dialog { position: static; }
+
 .journey-panel[open] { animation: none !important; transition: opacity .23s ease, transform .33s ease; }
 .journey-panel::backdrop { background: #040f13a8; transition: background .3s ease; }
 .journey-panel[data-phase="approach"], .journey-panel[data-phase="return"] { opacity: 0; transform: translateY(22px) scale(.985); pointer-events: none; }
